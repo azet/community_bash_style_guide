@@ -1,4 +1,9 @@
 ## hitchhikers guide to writing useful and modern bash scripts
+
+### introduction
+
+This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a certain goal.  It's not that difficult to figure out a common strategy. so here it is. **please participate** (fork, open a pull request,..).
+
 here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. furthermore people that will have to work with or maintain your scripts will not hate you in the future. 
 
 
