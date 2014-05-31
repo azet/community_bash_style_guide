@@ -2,7 +2,9 @@
 
 ### introduction
 
-This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a specific goal (e.g. which userland utilities to use, which built-ins can be used instead and which userland utilities you should avoid at all costs).  It's not that difficult to figure out a common strategy. so here it is. **please participate** (fork, open a pull request,..).
+This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a specific goal (e.g. which userland utilities to use, which built-ins can be used instead and which userland utilities you should avoid at all cost).  It's not that difficult to figure out a common strategy. so here it is. 
+
+**please participate**: fork this repo, add your thoughts and experiences and open a pull request!
 
 here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. furthermore people that will have to work with or maintain your scripts will not hate you in the future. 
 
@@ -85,7 +87,6 @@ ${listofthings} | awk '{ print $3 }' # get the third item
 use bashisms instead:
 ```bash
 ${listofthings:3}
-
 ```
 
 #### don't use `seq` for ranges
@@ -159,7 +160,7 @@ usually people use `&` to send a process to the background and `wait` to wait fo
 
 another excellent way to parallelize things in bash is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html 
  
-#### trapping signals and failing gracefully:
+#### trapping signals and failing gracefully
 `trap` is used for signal handling in bash, a generic error handling function may be used like this:
 
 ```bash
@@ -185,4 +186,4 @@ do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO}
 ```
 
 ### final remarks
-i will extend this over time. input very welcome.
+this will (hopefully) be extended by the community and myself over time.
