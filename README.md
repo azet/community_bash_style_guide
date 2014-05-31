@@ -155,7 +155,7 @@ if you do not know what a named pipe is, please read this: http://wiki.bash-hack
 
 see: https://www.gnu.org/software/bash/manual/bashref.html#index-disown
 
-#### basic parallelism with `coproc`
+#### basic parallelism with `coproc` and GNU parallel
 usually people use `&` to send a process to the background and `wait` to wait for the process to finish. people then often use named pipes, files and global variables to communicate between the parent and sub programs. `coproc` can be used instead to have parallel jobs that can easily communicate with each other: http://wiki.bash-hackers.org/syntax/keywords/coproc
 
 another excellent way to parallelize things in bash is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html 
