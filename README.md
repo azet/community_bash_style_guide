@@ -101,6 +101,11 @@ done
 
 the built-in range expression can do much more, see: http://wiki.bash-hackers.org/syntax/expansion/brace#ranges
 
+#### dealing with timeouts
+The GNU coreutils program `timeout(1)` should be used to timeout processes: https://www.gnu.org/software/coreutils/manual/html_node/timeout-invocation.html
+
+caveat: `timeout(1)` might not be available on BSD, Mac OS X and UNIX systems.
+
 #### use `printf` instead of `echo`
 the bash builtin `printf` should be prefered to `echo` where possible. it does work like `printf` in C or any other high-level language, for reference see: http://wiki.bash-hackers.org/commands/builtin/printf
 
