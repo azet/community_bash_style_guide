@@ -191,7 +191,7 @@ do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO}
 ```
 
 #### you don't need cat
-on some systems `cat` is not available or disabled, but with bash you can read files anyhow.
+sometimes `cat` is not available, but with bash you can read files anyhow.
 
 ```bash
 BATTERY_STATUS=$(< /sys/class/power_supply/BAT0/status)
