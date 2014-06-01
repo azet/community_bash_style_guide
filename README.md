@@ -16,8 +16,7 @@ here's how you write bash code that somebody else will actually understand, is u
 * https://google-styleguide.googlecode.com/svn/trunk/shell.xml
 * http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
 * http://mywiki.wooledge.org/BashWeaknesses 
-* http://warewulf.lbl.gov/trac/wiki/Node%20Health%20Check#TipsandBestPracticesforChecks
-
+* https://github.com/docopt/docopts (see: http://docopt.org)
 
 ##### linting and static analysis:
 * http://www.shellcheck.net
