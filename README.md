@@ -194,8 +194,8 @@ do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO}
 sometimes `cat` is not available, but with bash you can read files anyhow.
 
 ```bash
-readonly BATTERY_STATUS=$(< /sys/class/power_supply/BAT0/status)
-printf "$BATTERY_STATUS\n"
+readonly batterystatus=$(< /sys/class/power_supply/BAT0/status)
+printf "$batterystatus\n"
 ```
 
 ### final remarks
