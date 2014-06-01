@@ -196,6 +196,7 @@ on some systems `cat` is not available or disabled, but with bash you can read f
 ```bash
 BATTERY_STATUS=$(< /sys/class/power_supply/BAT0/status)
 printf "$BATTERY_STATUS\n"
+```
 
 ### final remarks
 this will (hopefully) be extended by the community and myself over time.
