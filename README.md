@@ -107,7 +107,7 @@ The GNU coreutils program `timeout(1)` should be used to timeout processes: http
 caveat: `timeout(1)` might not be available on BSD, Mac OS X and UNIX systems.
 
 #### use `printf` instead of `echo`
-the bash builtin `printf` should be prefered to `echo` where possible. it does work like `printf` in C or any other high-level language, for reference see: http://wiki.bash-hackers.org/commands/builtin/printf
+the bash builtin `printf` should be preferred to `echo` where possible. it does work like `printf` in C or any other high-level language, for reference see: http://wiki.bash-hackers.org/commands/builtin/printf
 
 #### bash arithmetic instead of `expr`
 bash offers the whole nine yards of arithmetic expressions directly as built-in bashisms.   
@@ -188,6 +188,14 @@ function fail() {
 
 ```bash
 do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO} $?
+```
+
+#### you don't need cat
+sometimes `cat` is not available, but with bash you can read files anyhow.
+
+```bash
+readonly batterystatus=$(< /sys/class/power_supply/BAT0/status)
+printf "$batterystatus\n"
 ```
 
 ### final remarks
