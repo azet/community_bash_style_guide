@@ -175,7 +175,7 @@ function fail() {
         # arg: 2 - file
         # arg: 3 - line number
         # arg: 4 - exit status
-        echo "${banner} ERROR: ${1}."
+        echo "${banner} ERROR: ${1}." >&2
         [[ ${2+defined} && ${3+defined} && ${4+defined} ]] && \
         echo "${banner} file: ${2}, line number: ${3}, exit code: ${4}. exiting!"
         
