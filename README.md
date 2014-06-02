@@ -197,5 +197,60 @@ batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
 ```
 
+#### use getopt for command line parameters
+
+```bash
+echo "This script is: "${0##/*/};
+
+[[ $# -eq 0 ]] && {
+	# no arguments
+	echo "No options given: $OPTIND";
+	exit 1
+}
+
+log=; # numeric, log
+table=; # single fill
+stores=( ); # array
+
+# : after a letter is for string into parameter
+while getopts ":dhls:t:" opt
+do
+	case $opt in
+
+		d)
+			set -x;
+			;;
+		h)
+			echo "Help page";
+			exit 0;
+			;;
+		s)
+			stores[${#stores[*]}]=$OPTARG;
+			;;
+		t)
+			if [ -z "$table" ];
+			then
+				table=$OPTARG;
+			fi;
+			;;
+		l)
+			(( log++ ));
+			;;
+
+		\? )  echo -e "\n  Option does not exist : $OPTARG\n"
+			echo "One option"; exit 1   ;;
+
+	esac    # --- end of case ---
+done
+
+# set debug if log is more than two
+[[ $log -gt 2 ]] && {
+	set -x
+	log=
+}
+
+[[ "$log" == '' ]] && unset log
+```
+
 ### final remarks
 this will (hopefully) be extended by the community and myself over time.
