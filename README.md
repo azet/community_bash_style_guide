@@ -83,9 +83,10 @@ stackexchange is full of this behavoir:
 ```bash
 ${listofthings} | awk '{ print $3 }' # get the third item
 ```
-use bashisms instead:
+you may bashisms instead:
 ```bash
-${listofthings:3}
+listofthings=(${listofthings}) # convert to array
+${listofthings[3]}
 ```
 
 #### don't use `seq` for ranges
