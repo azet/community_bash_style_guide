@@ -32,16 +32,15 @@ here's how you write bash code that somebody else will actually understand, is u
 * `set -evx` and `bash -evx script.sh`
 * http://bashdb.sourceforge.net/
 
-## when to use bash and when to avoid bash
-that's rather simple: 
-does it need to glue userland utilities together? yes? -> use bash.
-does it need to do complex tasks (e.g. database queries)? -> use something else.
+### when to use bash and when to avoid bash
+it's rather simple:      
+does it need to glue userland utilities together? - use bash.   
+does it need to do complex tasks (e.g. database queries)? - use something else.   
 
-why?
-you can do a lot of complicated tasks with bash, and I've had some experience in trying
-them out in bash. It consumes a lot of time and is often very difficult to debug in comparison
-to other dynamic languages such as python, ruby or even perl. You are simply going to waste
-valuable time and performance you could have spent better.
+why? you can do a lot of complicated tasks with bash, and I've had some experience in trying
+them all out in bash. It consumes a lot of time and is often very difficult to debug in comparison
+to dynamic programming languages such as python, ruby or even perl. You are simply going to waste
+valuable time, performance and nerve you could have spent better otherwise.
 
 ### common mistakes and useful tricks
 
@@ -67,14 +66,15 @@ ls ${long_list_of_parameters} | grep ${foo} | grep -v grep | pgrep | wc -l | sor
 ```
 do:
 ```bash
-ls ${long_list_of_parameters}   \
-    | grep ${foo} 		\
-    | grep -v grep		\
-    | pgrep 			\
-    | wc -l 			\
-    | sort 			\
+ls ${long_list_of_parameters}	\
+    | grep ${foo}	\
+    | grep -v grep	\
+    | pgrep	\
+    | wc -l	\
+    | sort	\	
     | uniq
 ```
+..far better readable, isn't it?
 
 #### overusing grep and `grep -v`
 please never do that. there's almost certainly a better way to express this.
@@ -94,9 +94,10 @@ stackexchange is full of this behavoir:
 ```bash
 ${listofthings} | awk '{ print $3 }' # get the third item
 ```
-use bashisms instead:
+you may bashisms instead:
 ```bash
-${listofthings:3}
+listofthings=(${listofthings}) # convert to array
+${listofthings[3]}
 ```
 
 #### don't use `seq` for ranges
@@ -186,7 +187,7 @@ function fail() {
         # arg: 2 - file
         # arg: 3 - line number
         # arg: 4 - exit status
-        echo "${banner} ERROR: ${1}."
+        echo "${banner} ERROR: ${1}." >&2
         [[ ${2+defined} && ${3+defined} && ${4+defined} ]] && \
         echo "${banner} file: ${2}, line number: ${3}, exit code: ${4}. exiting!"
         
@@ -206,6 +207,61 @@ sometimes `cat` is not available, but with bash you can read files anyhow.
 ```bash
 batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
+```
+
+#### use getopt for command line parameters
+
+```bash
+echo "This script is: "${0##/*/};
+
+[[ $# -eq 0 ]] && {
+	# no arguments
+	echo "No options given: $OPTIND";
+	exit 1
+}
+
+log=; # numeric, log
+table=; # single fill
+stores=( ); # array
+
+# : after a letter is for string into parameter
+while getopts ":dhls:t:" opt
+do
+	case $opt in
+
+		d)
+			set -x;
+			;;
+		h)
+			echo "Help page";
+			exit 0;
+			;;
+		s)
+			stores[${#stores[*]}]=$OPTARG;
+			;;
+		t)
+			if [ -z "$table" ];
+			then
+				table=$OPTARG;
+			fi;
+			;;
+		l)
+			(( log++ ));
+			;;
+
+		\? )  echo -e "\n  Option does not exist : $OPTARG\n"
+			echo "One option"; exit 1   ;;
+
+	esac    # --- end of case ---
+done
+
+# set debug if log is more than two
+[[ $log -gt 2 ]] && {
+	set -x
+	log=
+}
+
+[[ "$log" == '' ]] && unset log
 ```
 
 ### final remarks
