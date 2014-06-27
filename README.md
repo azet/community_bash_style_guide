@@ -32,6 +32,17 @@ here's how you write bash code that somebody else will actually understand, is u
 * `set -evx` and `bash -evx script.sh`
 * http://bashdb.sourceforge.net/
 
+## when to use bash and when to avoid bash
+that's rather simple: 
+does it need to glue userland utilities together? yes? -> use bash.
+does it need to do complex tasks (e.g. database queries)? -> use something else.
+
+why?
+you can do a lot of complicated tasks with bash, and I've had some experience in trying
+them out in bash. It consumes a lot of time and is often very difficult to debug in comparison
+to other dynamic languages such as python, ruby or even perl. You are simply going to waste
+valuable time and performance you could have spent better.
+
 ### common mistakes and useful tricks
 
 #### never use backticks
@@ -56,12 +67,12 @@ ls ${long_list_of_parameters} | grep ${foo} | grep -v grep | pgrep | wc -l | sor
 ```
 do:
 ```bash
-ls ${long_list_of_parameters} 
-    | grep ${foo} 
-    | grep -v grep 
-    | pgrep 
-    | wc -l 
-    | sort 
+ls ${long_list_of_parameters}   \
+    | grep ${foo} 		\
+    | grep -v grep		\
+    | pgrep 			\
+    | wc -l 			\
+    | sort 			\
     | uniq
 ```
 
