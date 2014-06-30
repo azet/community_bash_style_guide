@@ -74,7 +74,7 @@ ls ${long_list_of_parameters}	\
     | sort	\	
     | uniq
 ```
-..far better readable, isn't it?
+..far more readable, isn't it?
 
 #### overusing grep and `grep -v`
 please never do that. there's almost certainly a better way to express this.
@@ -84,7 +84,7 @@ for example:
 ```bash
 ps ax | grep ${processname} | grep -v grep 
 ```
-versus:
+versus using appropriate userland utilities:
 ```bash
 pgrep ${processname}
 ```
@@ -94,7 +94,7 @@ stackexchange is full of this behavoir:
 ```bash
 ${listofthings} | awk '{ print $3 }' # get the third item
 ```
-you may bashisms instead:
+you may use bashisms instead:
 ```bash
 listofthings=(${listofthings}) # convert to array
 ${listofthings[3]}
