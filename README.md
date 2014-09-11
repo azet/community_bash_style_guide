@@ -27,6 +27,7 @@ here's how you write bash code that somebody else will actually understand, is u
 
 ##### unit testing:
 * https://code.google.com/p/shunit2/
+* https://github.com/mlafeldt/sharness
 
 ##### debugging:
 * `set -evx` and `bash -evx script.sh`
