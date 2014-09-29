@@ -30,14 +30,17 @@ here's how you write bash code that somebody else will actually understand, is u
 * https://code.google.com/p/shunit2/
 * https://github.com/mlafeldt/sharness
 
+##### profiling:
+* https://github.com/sstephenson/bashprof
+
 ##### debugging:
 * `set -evx` and `bash -evx script.sh`
 * http://bashdb.sourceforge.net/
 
 ### when to use bash and when to avoid bash
-it's rather simple:      
-does it need to glue userland utilities together? - use bash.   
-does it need to do complex tasks (e.g. database queries)? - use something else.   
+it's rather simple:
+- does it need to glue userland utilities together? -> use bash.
+- does it need to do complex tasks (e.g. database queries)? -> use something else.
 
 why? you can do a lot of complicated tasks with bash, and I've had some experience in trying
 them all out in bash. It consumes a lot of time and is often very difficult to debug in comparison
