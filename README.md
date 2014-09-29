@@ -72,11 +72,11 @@ ls ${long_list_of_parameters} | grep ${foo} | grep -v grep | pgrep | wc -l | sor
 do:
 ```bash
 ls ${long_list_of_parameters}	\
-    | grep ${foo}	\
-    | grep -v grep	\
-    | pgrep	\
-    | wc -l	\
-    | sort	\	
+    | grep ${foo}	               \
+    | grep -v grep	             \
+    | pgrep	                     \
+    | wc -l	                     \
+    | sort	                     \
     | uniq
 ```
 ..far more readable, isn't it?
@@ -87,7 +87,7 @@ please never do that. there's almost certainly a better way to express this.
 
 for example:
 ```bash
-ps ax | grep ${processname} | grep -v grep 
+ps ax | grep ${processname} | grep -v grep
 ```
 versus using appropriate userland utilities:
 ```bash
@@ -131,7 +131,7 @@ bash offers the whole nine yards of arithmetic expressions directly as built-in 
  **DO NOT USE `expr`**
 
 
-for reference see:   
+for reference see:
 * http://wiki.bash-hackers.org/syntax/arith_expr
 * http://www.softpanorama.org/Scripting/Shellorama/arithmetic_expressions.shtml
 
