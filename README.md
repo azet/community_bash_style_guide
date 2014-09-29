@@ -26,6 +26,7 @@ here's how you write bash code that somebody else will actually understand, is u
 * http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
 
 ##### unit testing:
+* https://github.com/sstephenson/bats
 * https://code.google.com/p/shunit2/
 
 ##### debugging:
