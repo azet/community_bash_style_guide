@@ -72,11 +72,11 @@ ls ${long_list_of_parameters} | grep ${foo} | grep -v grep | pgrep | wc -l | sor
 do:
 ```bash
 ls ${long_list_of_parameters}	\
-    | grep ${foo}	               \
-    | grep -v grep	             \
-    | pgrep	                     \
-    | wc -l	                     \
-    | sort	                     \
+    | grep ${foo}	            \
+    | grep -v grep	            \
+    | pgrep	                    \
+    | wc -l	                    \
+    | sort	                    \
     | uniq
 ```
 ..far more readable, isn't it?
