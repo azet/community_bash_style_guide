@@ -27,17 +27,21 @@ here's how you write bash code that somebody else will actually understand, is u
 * http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
 
 ##### unit testing:
+* https://github.com/sstephenson/bats
 * https://code.google.com/p/shunit2/
 * https://github.com/mlafeldt/sharness
+
+##### profiling:
+* https://github.com/sstephenson/bashprof
 
 ##### debugging:
 * `set -evx` and `bash -evx script.sh`
 * http://bashdb.sourceforge.net/
 
 ### when to use bash and when to avoid bash
-it's rather simple:      
-does it need to glue userland utilities together? - use bash.   
-does it need to do complex tasks (e.g. database queries)? - use something else.   
+it's rather simple:
+- does it need to glue userland utilities together? -> use bash.
+- does it need to do complex tasks (e.g. database queries)? -> use something else.
 
 why? you can do a lot of complicated tasks with bash, and I've had some experience in trying
 them all out in bash. It consumes a lot of time and is often very difficult to debug in comparison
@@ -69,11 +73,11 @@ ls ${long_list_of_parameters} | grep ${foo} | grep -v grep | pgrep | wc -l | sor
 do:
 ```bash
 ls ${long_list_of_parameters}	\
-    | grep ${foo}	\
-    | grep -v grep	\
-    | pgrep	\
-    | wc -l	\
-    | sort	\	
+    | grep ${foo}	            \
+    | grep -v grep	            \
+    | pgrep	                    \
+    | wc -l	                    \
+    | sort	                    \
     | uniq
 ```
 ..far more readable, isn't it?
@@ -84,7 +88,7 @@ please never do that. there's almost certainly a better way to express this.
 
 for example:
 ```bash
-ps ax | grep ${processname} | grep -v grep 
+ps ax | grep ${processname} | grep -v grep
 ```
 versus using appropriate userland utilities:
 ```bash
@@ -128,7 +132,7 @@ bash offers the whole nine yards of arithmetic expressions directly as built-in 
  **DO NOT USE `expr`**
 
 
-for reference see:   
+for reference see:
 * http://wiki.bash-hackers.org/syntax/arith_expr
 * http://www.softpanorama.org/Scripting/Shellorama/arithmetic_expressions.shtml
 
