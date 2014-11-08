@@ -17,6 +17,7 @@ here's how you write bash code that somebody else will actually understand, is u
 * http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
 * http://mywiki.wooledge.org/BashWeaknesses 
 * https://github.com/docopt/docopts (see: http://docopt.org)
+* http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
 
 ##### linting and static analysis:
 * http://www.shellcheck.net
