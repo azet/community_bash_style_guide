@@ -59,6 +59,7 @@ and/or logical.
 This should be seen as an ongoing discussion, you might want to open an
 Issue in this GitHub repository if you disagree.
 
+* use the `#!/usr/bin/env bash` shebang wherever possible
 * never use TAB for intendation
 * consistently use two (2), three (3) or four (4) character intendation.
   These are indeed mutually exclusive.
@@ -97,7 +98,6 @@ Issue in this GitHub repository if you disagree.
     esac
     ```
 
-* use the shebang: `#!/usr/bin/env bash` whereever possible
 * only `trap` / handle signals you actually care about
 * always work with return values instead of strings passed from a
   function or userland utility
