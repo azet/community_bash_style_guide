@@ -42,10 +42,10 @@ Here's how you write bash code that somebody else will actually understand, is u
 
 ## When to use bash and when to avoid bash
 it's rather simple:
-- does it need to glue userland utilities together? -> use bash.
-- does it need to do complex tasks (e.g. database queries)? -> use something else.
+- does it need to glue userland utilities together? use bash.
+- does it need to do complex tasks (e.g. database queries)? use something else.
 
-why? you can do a lot of complicated tasks with bash, and I've had some experience in trying
+Why? You can do a lot of complicated tasks with bash, and I'e had some experience in trying
 them all out in bash. It consumes a lot of time and is often very difficult to debug in comparison
 to dynamic programming languages such as python, ruby or even perl. You are simply going to waste
 valuable time, performance and nerve you could have spent better otherwise.
@@ -56,11 +56,12 @@ This is based on the most common practices and guides available. It is
 also what I've seen others recommend and use and seemed most consistent
 and/or logical.
 
-This is an open discussion, you might want to open an
-Issue if you disagree.
+This should be seen as an ongoing discussion, you might want to open an
+Issue in this GitHub repository if you disagree.
 
 * never use TAB for intendation
-* consistently use two (2), three (3) or four (4) character intendation
+* consistently use two (2), three (3) or four (4) character intendation.
+  These are indeed mutually exclusive.
 * do not put `if .. then`, `while .. do` or `for .. do`, `case .. in` et cetera on a new line. this is more a tradition than actual convention. Most Bash programmers will use that style - for the sake of simplicity, let's do as well:
     ```bash
     if ${event}; then
