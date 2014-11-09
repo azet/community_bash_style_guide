@@ -48,6 +48,20 @@ them all out in bash. It consumes a lot of time and is often very difficult to d
 to dynamic programming languages such as python, ruby or even perl. You are simply going to waste
 valuable time, performance and nerve you could have spent better otherwise.
 
+### conventions
+* consistently use two (2), three (3) or four (4) character intendation
+* do not use TAB for intendation
+* always mark method local variables with `local`
+* write clear code
+  * **never** obfuscate what the script is trying to do
+  * **never** shorten uncessesarily with a lot of commands per LoC chained
+    with a semicolon.
+* Bash does not have a concept of public and private functions, thus;
+  * public functions get generic names, whereas
+  * private functions are prepended by two underscores (RedHat
+    convention)
+
+
 ### common mistakes and useful tricks
 
 #### never use backticks
