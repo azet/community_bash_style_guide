@@ -75,11 +75,11 @@ Issue in this GitHub repository if you disagree.
 
     for v in ${list[@]}; do
       ...
-    done
+    donem
     ```
 
 * never forget that you cannot leave a space/blank during an assignment, e.g. `ret = false` will not work
-* always set method variables `local`
+* always set local function variables `local`
 * write clear code
   * **never** obfuscate what the script is trying to do
   * **never** shorten uncessesarily with a lot of commands per LoC chained
