@@ -62,31 +62,30 @@ valuable time, performance and nerve you could have spent better otherwise.
     convention)
 * every lien must have a maximum of eighty (80) terminal columns
 * like in other dynamic languages, switch/case blocks must be aligned:
-```bash
-case ${contenders}; in
-teller)  ... ;;
-ulam) 	 ... ;;
-neumann) ... ;;
-esac
-```
+    ```bash
+    case ${contenders}; in
+    teller)  ... ;;
+    ulam) 	 ... ;;
+    neumann) ... ;;
+    esac
+    ```
 
 * use the shebang: `#!/usr/bin/env bash` whereever possible
 * always work with return values instead of strings passed from a
   function or userland utility
 * write a lot of generic small check functions instead of overblown
 initialization and clean-up code. e.g.:
-```bash
-function is_valid_string?() {
-  [[ $@ =~ ^[A-Za-z0-9]*$ ]]
-}
-function is_integer?() {
-  [[ $@ =~ ^-?[0-9]+$ ]]
-}
-
-# here both functions will only return zero if there was no error
-```
-* try to be as modular as possible and;
-* if a project gets bigger, split it up into files
+    ```bash
+    # here both functions will only return zero if there was no error
+    function is_valid_string?() {
+      [[ $@ =~ ^[A-Za-z0-9]*$ ]]
+    }
+    function is_integer?() {
+      [[ $@ =~ ^-?[0-9]+$ ]]
+    }
+    ```
+* be as modular and plugable as possible and;
+* if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
 
 
 ## common mistakes and useful tricks
