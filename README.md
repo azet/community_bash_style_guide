@@ -290,7 +290,7 @@ echo "This script is: "${0##/*/};
 
 [[ $# -eq 0 ]] && {
 	# no arguments
-	echo "No options given: $OPTIND";
+	echo "No options given: ${OPTIND}";
 	exit 1
 }
 
@@ -301,20 +301,20 @@ stores=( ); # array
 # : after a letter is for string into parameter
 while getopts ":dhls:t:" opt; do
   case ${opt} in
-	d) set -x                           ;;
-	h)
- 		 echo "Help page"
- 		 exit
+   d) set -x ;;
+   h)
+      echo "Help page"
+      exit
   ;;
-  s) stores[${#stores[*]}]=${OPTARG}  ;;
+  s) stores[${#stores[*]}]=${OPTARG} ;;
   t)
-     if [ -z "$table" ]; then
+     if [ -z "${table}" ]; then
        table=$OPTARG
      fi
   ;;
-  l) (( log++ ))                      ;;
+  l) (( log++ )) ;;
   *)
-     echo -e "\n  Option does not exist: $OPTARG\n"
+     echo -e "\n  Option does not exist: ${OPTARG}\n"
   	 echo "One option"
      exit 1
   ;;
@@ -322,11 +322,11 @@ while getopts ":dhls:t:" opt; do
 done
 
 # set debug if log is more than two
-[[ $log -gt 2 ]] && {
+[[ ${log} -gt 2 ]] && {
 	set -x
 	log=
 }
-[[ "$log" == '' ]] && unset log
+[[ "${log}" == '' ]] && unset log
 ```
 
 ## Final remarks
