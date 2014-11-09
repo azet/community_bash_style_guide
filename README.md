@@ -1,6 +1,6 @@
-## hitchhikers guide to writing useful and modern bash scripts
+# hitchhikers guide to writing useful and modern bash scripts
 
-### introduction
+## introduction
 
 This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a specific goal (e.g. which userland utilities to use, which built-ins can be used instead and which userland utilities you should avoid at all cost).  It's not that difficult to figure out a common strategy. so here it is. 
 
@@ -9,7 +9,7 @@ This is intended to be a community driven bash style and best practice guide. Th
 here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. furthermore people that will have to work with or maintain your scripts will not hate you in the future. 
 
 
-##### general documentation, style guides, tutorials and articles:
+#### general documentation, style guides, tutorials and articles:
 * https://www.gnu.org/software/bash/manual/bashref.html
 * http://wiki.bash-hackers.org/doku.php
 * http://mywiki.wooledge.org/BashFAQ
@@ -19,26 +19,26 @@ here's how you write bash code that somebody else will actually understand, is u
 * https://github.com/docopt/docopts (see: http://docopt.org)
 * http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
 
-##### linting and static analysis:
+#### linting and static analysis:
 * http://www.shellcheck.net
 * https://github.com/koalaman/shellcheck
 * https://www.npmjs.org/package/grunt-lint-bash
 * https://github.com/duggan/shlint
 * http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
 
-##### unit testing:
+#### unit testing:
 * https://github.com/sstephenson/bats
 * https://code.google.com/p/shunit2/
 * https://github.com/mlafeldt/sharness
 
-##### profiling:
+#### profiling:
 * https://github.com/sstephenson/bashprof
 
-##### debugging:
+#### debugging:
 * `set -evx` and `bash -evx script.sh`
 * http://bashdb.sourceforge.net/
 
-### when to use bash and when to avoid bash
+## when to use bash and when to avoid bash
 it's rather simple:
 - does it need to glue userland utilities together? -> use bash.
 - does it need to do complex tasks (e.g. database queries)? -> use something else.
@@ -48,7 +48,7 @@ them all out in bash. It consumes a lot of time and is often very difficult to d
 to dynamic programming languages such as python, ruby or even perl. You are simply going to waste
 valuable time, performance and nerve you could have spent better otherwise.
 
-### conventions
+## conventions
 * consistently use two (2), three (3) or four (4) character intendation
 * do not use TAB for intendation
 * always mark method local variables with `local`
@@ -60,11 +60,26 @@ valuable time, performance and nerve you could have spent better otherwise.
   * public functions get generic names, whereas
   * private functions are prepended by two underscores (RedHat
     convention)
+* every lien must have a maximum of eighty (80) terminal columns
+* like in other dynamic languages, switch/case blocks are to be done at
+  the same alignment: ````bash
+case ${contenders}; in
+option1) ... ;;
+option2) ... ;;
+option3) ... ;;
+
+[...]
+
+esac
+```
+* use the shebang: `#!/usr/bin/env bash` whereever possible
+* always work with return values instead of strings passed from a
+  function or userland utility
 
 
-### common mistakes and useful tricks
+## common mistakes and useful tricks
 
-#### never use backticks
+### never use backticks
 wrong:
 ```bash
 `call_command_in_subshell`
@@ -78,7 +93,7 @@ backticks are not POSIX compliant. they also cannot be nested without being esca
 ```bash
 $(call_command_in_subshell $(different_command $(yetanother_as_parameter)))
 ```
-#### multiline pipe
+### multiline pipe
 
 instead of:
 ```bash
@@ -96,7 +111,7 @@ ls ${long_list_of_parameters}	\
 ```
 ..far more readable, isn't it?
 
-#### overusing grep and `grep -v`
+### overusing grep and `grep -v`
 please never do that. there's almost certainly a better way to express this.
 
 
@@ -108,7 +123,7 @@ versus using appropriate userland utilities:
 ```bash
 pgrep ${processname}
 ```
-#### using awk to print an element
+### using awk to print an element
 stackexchange is full of this behavoir:
 
 ```bash
@@ -120,7 +135,7 @@ listofthings=(${listofthings}) # convert to array
 ${listofthings[3]}
 ```
 
-#### don't use `seq` for ranges
+### don't use `seq` for ranges
 use `{x..y}` instead!
 
 e.g.:
@@ -132,15 +147,15 @@ done
 
 the built-in range expression can do much more, see: http://wiki.bash-hackers.org/syntax/expansion/brace#ranges
 
-#### dealing with timeouts
+### dealing with timeouts
 The GNU coreutils program `timeout(1)` should be used to timeout processes: https://www.gnu.org/software/coreutils/manual/html_node/timeout-invocation.html
 
 caveat: `timeout(1)` might not be available on BSD, Mac OS X and UNIX systems.
 
-#### use `printf` instead of `echo`
+### use `printf` instead of `echo`
 the bash builtin `printf` should be preferred to `echo` where possible. it does work like `printf` in C or any other high-level language, for reference see: http://wiki.bash-hackers.org/commands/builtin/printf
 
-#### bash arithmetic instead of `expr`
+### bash arithmetic instead of `expr`
 bash offers the whole nine yards of arithmetic expressions directly as built-in bashisms.   
 
  **DO NOT USE `expr`**
@@ -151,12 +166,12 @@ for reference see:
 * http://www.softpanorama.org/Scripting/Shellorama/arithmetic_expressions.shtml
 
 
-#### never use `bc(1)` for modulo operations
+### never use `bc(1)` for modulo operations
 it will come to hurt you, trust me.
 
 `bc(1)` does not properly handle modulo operations most of the time: https://superuser.com/questions/31445/gnu-bc-modulo-with-scale-other-than-0
 
-#### using sockets with bash
+### using sockets with bash
 although i do not really recommend it, it's possible to do simple (or even complex) socket operations in bash using the `/dev/tcp` and `/dev/udp` pseudo-devices: http://wiki.bash-hackers.org/syntax/redirection
 
 example:
@@ -182,21 +197,21 @@ you may consider using `nc` (netcat) or even the far more advanced program `soca
 * http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
 
 
-#### FIFO/named pipes
+### FIFO/named pipes
 if you do not know what a named pipe is, please read this: http://wiki.bash-hackers.org/howto/redirection_tutorial
 
 
-#### disown
+### disown
 `disown` is a bash built-in that can be used to remove a job from the job table of a bash script. for example, if you spawn a lot of sub processes, you can remove one or multiple of these processes with `disown` and the script will not care about it anymore.
 
 see: https://www.gnu.org/software/bash/manual/bashref.html#index-disown
 
-#### basic parallelism with `coproc` and GNU parallel
+### basic parallelism with `coproc` and GNU parallel
 usually people use `&` to send a process to the background and `wait` to wait for the process to finish. people then often use named pipes, files and global variables to communicate between the parent and sub programs. `coproc` can be used instead to have parallel jobs that can easily communicate with each other: http://wiki.bash-hackers.org/syntax/keywords/coproc
 
 another excellent way to parallelize things in bash is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html 
- 
-#### trapping signals and failing gracefully
+
+### trapping signals and failing gracefully
 `trap` is used for signal handling in bash, a generic error handling function may be used like this:
 
 ```bash
@@ -221,7 +236,7 @@ function fail() {
 do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO} $?
 ```
 
-#### you don't need cat
+### you don't need cat
 sometimes `cat` is not available, but with bash you can read files anyhow.
 
 ```bash
@@ -229,7 +244,7 @@ batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
 ```
 
-#### use getopt for command line parameters
+### use getopt for command line parameters
 
 ```bash
 echo "This script is: "${0##/*/};
@@ -284,5 +299,5 @@ done
 [[ "$log" == '' ]] && unset log
 ```
 
-### final remarks
+## final remarks
 this will (hopefully) be extended by the community and myself over time.
