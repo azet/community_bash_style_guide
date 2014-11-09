@@ -1,4 +1,6 @@
-# hitchhikers guide to writing useful and modern bash scripts
+# Community Bash Style Guide
+
+Formerly known as: *hitchhikers guide to writing useful and modern bash scripts*
 
 ## Introduction
 
