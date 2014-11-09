@@ -4,20 +4,20 @@ Formerly known as: *hitchhikers guide to writing useful and modern bash scripts*
 
 ## Introduction
 
-This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a specific goal (e.g. which userland utilities to use, which built-ins can be used instead and which userland utilities you should avoid at all cost).  It's not that difficult to figure out a common strategy. so here it is. 
+This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a specific goal (e.g. which userland utilities to use, which built-ins can be used instead and which userland utilities you should avoid at all cost).  It's not that difficult to figure out a common strategy. so here it is.
 
-**please participate**: fork this repo, add your thoughts and experiences and open a pull request!
+**Please participate**: fork this repo, add your thoughts and experiences and open a pull request!
 
-here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. furthermore people that will have to work with or maintain your scripts will not hate you in the future. 
+Here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. Furthermore people that will have to work with or maintain your scripts will not hate you in the future.
 
-
+### Resources
 #### General documentation, style guides, tutorials and articles:
 * https://www.gnu.org/software/bash/manual/bashref.html
 * http://wiki.bash-hackers.org/doku.php
 * http://mywiki.wooledge.org/BashFAQ
 * https://google-styleguide.googlecode.com/svn/trunk/shell.xml
 * http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
-* http://mywiki.wooledge.org/BashWeaknesses 
+* http://mywiki.wooledge.org/BashWeaknesses
 * https://github.com/docopt/docopts (see: http://docopt.org)
 * http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
 
@@ -50,11 +50,34 @@ them all out in bash. It consumes a lot of time and is often very difficult to d
 to dynamic programming languages such as python, ruby or even perl. You are simply going to waste
 valuable time, performance and nerve you could have spent better otherwise.
 
-## Common style conventions
-* consistently use two (2), three (3) or four (4) character intendation
+## Style conventions
+
+This is based on the most common practices and guides available. It is
+also what I've seen others recommend and use and seemed most consistent
+and/or logical.
+
+This is an open discussion, you might want to open an
+Issue if you disagree.
+
 * never use TAB for intendation
-* never leave a blank/space during a assignment
-* always mark method variables with `local`
+* consistently use two (2), three (3) or four (4) character intendation
+* do not put `if .. then`, `while .. do` or `for .. do`, `case .. in` et cetera on a new line. this is more a tradition than actual convention. Most Bash programmers will use that style - for the sake of simplicity, let's do as well:
+    ```bash
+    if ${event}; then
+      ...
+    fi
+
+    while ${event}; do
+      ...
+    done
+
+    for v in ${list[@]}; do
+      ...
+    done
+    ```
+
+* never forget that you cannot leave a space/blank during an assignment, e.g. `ret = false` will not work
+* always set method variables `local`
 * write clear code
   * **never** obfuscate what the script is trying to do
   * **never** shorten uncessesarily with a lot of commands per LoC chained
@@ -63,8 +86,8 @@ valuable time, performance and nerve you could have spent better otherwise.
   * public functions get generic names, whereas
   * private functions are prepended by two underscores (RedHat
     convention)
-* every lien must have a maximum of eighty (80) terminal columns
-* like in other dynamic languages, switch/case blocks must be aligned:
+* every line must have a maximum of eighty (80) terminal columns
+* like in other dynamic languages, switch/case blocks should be aligned:
     ```bash
     case ${contenders}; in
     teller)  x=4 ;;
@@ -74,6 +97,7 @@ valuable time, performance and nerve you could have spent better otherwise.
     ```
 
 * use the shebang: `#!/usr/bin/env bash` whereever possible
+* only `trap` / handle signals you actually care about
 * always work with return values instead of strings passed from a
   function or userland utility
 * write a lot of generic small check method instead of large init and clean-up code:
@@ -90,8 +114,7 @@ valuable time, performance and nerve you could have spent better otherwise.
 * be as modular and plugable as possible and;
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
-* never use unescaped variables - while it /might/ not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness
-
+* never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
 
 ## Common mistakes and useful tricks
 
