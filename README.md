@@ -62,13 +62,11 @@ valuable time, performance and nerve you could have spent better otherwise.
     convention)
 * every lien must have a maximum of eighty (80) terminal columns
 * like in other dynamic languages, switch/case blocks must be aligned:
+```bash
 case ${contenders}; in
-option1) ... ;;
-option2) ... ;;
-option3) ... ;;
-
-[...]
-
+teller)  ... ;;
+ulam) 	 ... ;;
+neumann) ... ;;
 esac
 ```
 
