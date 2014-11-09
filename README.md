@@ -50,8 +50,9 @@ valuable time, performance and nerve you could have spent better otherwise.
 
 ## conventions
 * consistently use two (2), three (3) or four (4) character intendation
-* do not use TAB for intendation
-* always mark method local variables with `local`
+* never use TAB for intendation
+* never leave a blank/space during a assignment
+* always mark method variables with `local`
 * write clear code
   * **never** obfuscate what the script is trying to do
   * **never** shorten uncessesarily with a lot of commands per LoC chained
@@ -64,28 +65,30 @@ valuable time, performance and nerve you could have spent better otherwise.
 * like in other dynamic languages, switch/case blocks must be aligned:
     ```bash
     case ${contenders}; in
-    teller)  ... ;;
-    ulam) 	 ... ;;
-    neumann) ... ;;
+    teller)  x=4 ;;
+    ulam)    c=1 ;;
+    neumann) v=7 ;;
     esac
     ```
 
 * use the shebang: `#!/usr/bin/env bash` whereever possible
 * always work with return values instead of strings passed from a
   function or userland utility
-* write a lot of generic small check functions instead of overblown
-initialization and clean-up code. e.g.:
+* write a lot of generic small check method instead of large init and clean-up code:
     ```bash
-    # here both functions will only return zero if there was no error
+    # both functions return non-zero on error
     function is_valid_string?() {
       [[ $@ =~ ^[A-Za-z0-9]*$ ]]
     }
     function is_integer?() {
       [[ $@ =~ ^-?[0-9]+$ ]]
     }
-    ```
+   ```
+   
 * be as modular and plugable as possible and;
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
+* clearly document code parts that are not easily understood (long chains of piped commands for example)
+* never use unescaped variables - while it /might/ not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness
 
 
 ## common mistakes and useful tricks
