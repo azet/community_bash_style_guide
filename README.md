@@ -302,10 +302,10 @@ stores=( ); # array
 # : after a letter is for string into parameter
 while getopts ":dhls:t:" opt; do
   case ${opt} in
-   d) set -x ;;
-   h)
-      echo "Help page"
-      exit
+  d) set -x ;;
+  h)
+     echo "Help page"
+     exit
   ;;
   s) stores[${#stores[*]}]=${OPTARG} ;;
   t)
