@@ -99,6 +99,7 @@ Issue in this GitHub repository if you disagree.
     ```
 
 * only `trap` / handle signals you actually do care about
+* use the builtin `readonly` when declaring constants and immutable variables
 * always work with return values instead of strings passed from a
   function or userland utility (where applicable)
 * write generic small check functions instead of large init and clean-up code:
