@@ -98,10 +98,10 @@ Issue in this GitHub repository if you disagree.
     esac
     ```
 
-* only `trap` / handle signals you actually care about
+* only `trap` / handle signals you actually do care about
 * always work with return values instead of strings passed from a
-  function or userland utility
-* write a lot of generic small check method instead of large init and clean-up code:
+  function or userland utility (where applicable)
+* write generic small check functions instead of large init and clean-up code:
     ```bash
     # both functions return non-zero on error
     function is_valid_string?() {
