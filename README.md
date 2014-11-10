@@ -45,14 +45,14 @@ it's rather simple:
 - does it need to glue userland utilities together? use bash.
 - does it need to do complex tasks (e.g. database queries)? use something else.
 
-Why? You can do a lot of complicated tasks with bash, and I'e had some experience in trying
+Why? You can do a lot of complicated tasks with bash, and I've had some experience in trying
 them all out in bash. It consumes a lot of time and is often very difficult to debug in comparison
 to dynamic programming languages such as python, ruby or even perl. You are simply going to waste
 valuable time, performance and nerve you could have spent better otherwise.
 
 ## Style conventions
 
-This is based on the most common practices and guides available. It is
+This is based on most common practices and guides available. It is
 also what I've seen others recommend and use and seemed most consistent
 and/or logical.
 
