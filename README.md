@@ -75,7 +75,7 @@ Issue in this GitHub repository if you disagree.
 
     for v in ${list[@]}; do
       ...
-    donem
+    done
     ```
 
 * never forget that you cannot leave a space/blank during an assignment, e.g. `ret = false` will not work
