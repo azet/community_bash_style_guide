@@ -78,7 +78,7 @@ Issue in this GitHub repository if you disagree.
     done
     ```
 
-* never forget that you cannot leave a space/blank during an assignment, e.g. `ret = false` will not work
+* never forget that you cannot put a space/blank between a variable name and it's value during an assignment (e.g. `ret = false` will not work)
 * always set local function variables `local`
 * write clear code
   * **never** obfuscate what the script is trying to do
