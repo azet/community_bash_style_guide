@@ -214,6 +214,10 @@ batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
 ```
 
+#### locking (file based)
+`flock(1)` is an userland utility for managing file locking from
+within shell scripts. It supports exclusive and shared locking.
+
 #### use getopt for command line parameters
 
 ```bash
