@@ -1,55 +1,126 @@
-## hitchhikers guide to writing useful and modern bash scripts
+# Community Bash Style Guide
 
-### introduction
+Formerly known as: *hitchhikers guide to writing useful and modern bash scripts*
 
-This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a specific goal (e.g. which userland utilities to use, which built-ins can be used instead and which userland utilities you should avoid at all cost).  It's not that difficult to figure out a common strategy. so here it is. 
+## Introduction
 
-**please participate**: fork this repo, add your thoughts and experiences and open a pull request!
+This is intended to be a community driven bash style and best practice guide. There are a lot of blog posts and articles out there, but they do not always agree on certain issues, and mostly lack hints and best practices to achieve a specific goal (e.g. which userland utilities to use, which built-ins can be used instead and which userland utilities you should avoid at all cost).  It's not that difficult to figure out a common strategy. so here it is.
 
-here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. furthermore people that will have to work with or maintain your scripts will not hate you in the future. 
+**Please participate**: fork this repo, add your thoughts and experiences and open a pull request!
 
+Here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. Furthermore people that will have to work with or maintain your scripts will not hate you in the future.
 
-##### general documentation, style guides, tutorials and articles:
+### Resources
+#### General documentation, style guides, tutorials and articles:
 * https://www.gnu.org/software/bash/manual/bashref.html
 * http://wiki.bash-hackers.org/doku.php
 * http://mywiki.wooledge.org/BashFAQ
 * https://google-styleguide.googlecode.com/svn/trunk/shell.xml
 * http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
-* http://mywiki.wooledge.org/BashWeaknesses 
+* http://mywiki.wooledge.org/BashWeaknesses
 * https://github.com/docopt/docopts (see: http://docopt.org)
+* http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
 
-##### linting and static analysis:
+#### Linting and static analysis:
 * http://www.shellcheck.net
 * https://github.com/koalaman/shellcheck
 * https://www.npmjs.org/package/grunt-lint-bash
 * https://github.com/duggan/shlint
 * http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
 
-##### unit testing:
+#### Test driven development and Unit testing:
 * https://github.com/sstephenson/bats
 * https://code.google.com/p/shunit2/
 * https://github.com/mlafeldt/sharness
 
-##### profiling:
+#### Profiling:
 * https://github.com/sstephenson/bashprof
 
-##### debugging:
+#### Debugging:
 * `set -evx` and `bash -evx script.sh`
 * http://bashdb.sourceforge.net/
 
-### when to use bash and when to avoid bash
+## When to use bash and when to avoid bash
 it's rather simple:
-- does it need to glue userland utilities together? -> use bash.
-- does it need to do complex tasks (e.g. database queries)? -> use something else.
+- does it need to glue userland utilities together? use bash.
+- does it need to do complex tasks (e.g. database queries)? use something else.
 
-why? you can do a lot of complicated tasks with bash, and I've had some experience in trying
+Why? You can do a lot of complicated tasks with bash, and I've had some experience in trying
 them all out in bash. It consumes a lot of time and is often very difficult to debug in comparison
 to dynamic programming languages such as python, ruby or even perl. You are simply going to waste
 valuable time, performance and nerve you could have spent better otherwise.
 
-### common mistakes and useful tricks
+## Style conventions
 
-#### never use backticks
+This is based on most common practices and guides available. It is
+also what I've seen others recommend and use and seemed most consistent
+and/or logical.
+
+This should be seen as an ongoing discussion, you might want to open an
+Issue in this GitHub repository if you disagree.
+
+* use the `#!/usr/bin/env bash` shebang wherever possible
+* never use TAB for intendation
+* consistently use two (2), three (3) or four (4) character intendation.
+  These are indeed mutually exclusive.
+* do not put `if .. then`, `while .. do` or `for .. do`, `case .. in` et cetera on a new line. this is more a tradition than actual convention. Most Bash programmers will use that style - for the sake of simplicity, let's do as well:
+    ```bash
+    if ${event}; then
+      ...
+    fi
+
+    while ${event}; do
+      ...
+    done
+
+    for v in ${list[@]}; do
+      ...
+    done
+    ```
+
+* never forget that you cannot put a space/blank between a variable name and it's value during an assignment (e.g. `ret = false` will not work)
+* always set local function variables `local`
+* write clear code
+  * **never** obfuscate what the script is trying to do
+  * **never** shorten uncessesarily with a lot of commands per LoC chained
+    with a semicolon.
+* Bash does not have a concept of public and private functions, thus;
+  * public functions get generic names, whereas
+  * private functions are prepended by two underscores (RedHat
+    convention)
+* every line must have a maximum of eighty (80) terminal columns
+* like in other dynamic languages, switch/case blocks should be aligned:
+    ```bash
+    case ${contenders}; in
+    teller)  x=4 ;;
+    ulam)    c=1 ;;
+    neumann) v=7 ;;
+    esac
+    ```
+
+* only `trap` / handle signals you actually do care about
+* use the builtin `readonly` when declaring constants and immutable variables
+* always work with return values instead of strings passed from a
+  function or userland utility (where applicable)
+* write generic small check functions instead of large init and clean-up code:
+    ```bash
+    # both functions return non-zero on error
+    function is_valid_string?() {
+      [[ $@ =~ ^[A-Za-z0-9]*$ ]]
+    }
+    function is_integer?() {
+      [[ $@ =~ ^-?[0-9]+$ ]]
+    }
+   ```
+
+* be as modular and plugable as possible and;
+* if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
+* clearly document code parts that are not easily understood (long chains of piped commands for example)
+* never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
+
+## Common mistakes and useful tricks
+
+### Never use backticks
 wrong:
 ```bash
 `call_command_in_subshell`
@@ -63,7 +134,7 @@ backticks are not POSIX compliant. they also cannot be nested without being esca
 ```bash
 $(call_command_in_subshell $(different_command $(yetanother_as_parameter)))
 ```
-#### multiline pipe
+### Multiline pipe
 
 instead of:
 ```bash
@@ -81,7 +152,7 @@ ls ${long_list_of_parameters}	\
 ```
 ..far more readable, isn't it?
 
-#### overusing grep and `grep -v`
+### Overusing grep and `grep -v`
 please never do that. there's almost certainly a better way to express this.
 
 
@@ -93,7 +164,7 @@ versus using appropriate userland utilities:
 ```bash
 pgrep ${processname}
 ```
-#### using awk to print an element
+### Using `awk(1)` to print an element
 stackexchange is full of this behavoir:
 
 ```bash
@@ -105,27 +176,27 @@ listofthings=(${listofthings}) # convert to array
 ${listofthings[3]}
 ```
 
-#### don't use `seq` for ranges
+### Do not use `seq` for ranges
 use `{x..y}` instead!
 
 e.g.:
 ```bash
-for k in {1..100}; do 
+for k in {1..100}; do
     $(do_awesome_stuff_with_input ${k})
 done
 ```
 
 the built-in range expression can do much more, see: http://wiki.bash-hackers.org/syntax/expansion/brace#ranges
 
-#### dealing with timeouts
+### Timeouts
 The GNU coreutils program `timeout(1)` should be used to timeout processes: https://www.gnu.org/software/coreutils/manual/html_node/timeout-invocation.html
 
 caveat: `timeout(1)` might not be available on BSD, Mac OS X and UNIX systems.
 
-#### use `printf` instead of `echo`
+### Please use `printf` instead of `echo`
 the bash builtin `printf` should be preferred to `echo` where possible. it does work like `printf` in C or any other high-level language, for reference see: http://wiki.bash-hackers.org/commands/builtin/printf
 
-#### bash arithmetic instead of `expr`
+### Bash arithmetic instead of `expr`
 bash offers the whole nine yards of arithmetic expressions directly as built-in bashisms.   
 
  **DO NOT USE `expr`**
@@ -136,12 +207,12 @@ for reference see:
 * http://www.softpanorama.org/Scripting/Shellorama/arithmetic_expressions.shtml
 
 
-#### never use `bc(1)` for modulo operations
+### Never use `bc(1)` for modulo operations
 it will come to hurt you, trust me.
 
 `bc(1)` does not properly handle modulo operations most of the time: https://superuser.com/questions/31445/gnu-bc-modulo-with-scale-other-than-0
 
-#### using sockets with bash
+### Using sockets with bash
 although i do not really recommend it, it's possible to do simple (or even complex) socket operations in bash using the `/dev/tcp` and `/dev/udp` pseudo-devices: http://wiki.bash-hackers.org/syntax/redirection
 
 example:
@@ -167,21 +238,21 @@ you may consider using `nc` (netcat) or even the far more advanced program `soca
 * http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
 
 
-#### FIFO/named pipes
+### FIFO/named pipes
 if you do not know what a named pipe is, please read this: http://wiki.bash-hackers.org/howto/redirection_tutorial
 
 
-#### disown
+### disown
 `disown` is a bash built-in that can be used to remove a job from the job table of a bash script. for example, if you spawn a lot of sub processes, you can remove one or multiple of these processes with `disown` and the script will not care about it anymore.
 
 see: https://www.gnu.org/software/bash/manual/bashref.html#index-disown
 
-#### basic parallelism with `coproc` and GNU parallel
+### Basic parallelism with `coproc` and GNU parallel
 usually people use `&` to send a process to the background and `wait` to wait for the process to finish. people then often use named pipes, files and global variables to communicate between the parent and sub programs. `coproc` can be used instead to have parallel jobs that can easily communicate with each other: http://wiki.bash-hackers.org/syntax/keywords/coproc
 
 another excellent way to parallelize things in bash is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html 
- 
-#### trapping signals and failing gracefully
+
+### Trapping, exception handling and failing gracefully
 `trap` is used for signal handling in bash, a generic error handling function may be used like this:
 
 ```bash
@@ -195,7 +266,7 @@ function fail() {
         echo "${banner} ERROR: ${1}." >&2
         [[ ${2+defined} && ${3+defined} && ${4+defined} ]] && \
         echo "${banner} file: ${2}, line number: ${3}, exit code: ${4}. exiting!"
-        
+
         # generic clean up code goes here (tempfiles, forked processes,..)
 
         exit 1
@@ -206,7 +277,7 @@ function fail() {
 do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO} $?
 ```
 
-#### you don't need cat
+### You don't need cat
 sometimes `cat` is not available, but with bash you can read files anyhow.
 
 ```bash
@@ -214,18 +285,17 @@ batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
 ```
 
-#### locking (file based)
-`flock(1)` is an userland utility for managing file locking from
-within shell scripts. It supports exclusive and shared locking.
+### locking (file based)
+`flock(1)` is an userland utility for managing file based locking
+from within shell scripts. It supports exclusive and shared locks.
 
-#### use getopt for command line parameters
-
+### Use the `getopt` builtin for command line parameters
 ```bash
 echo "This script is: "${0##/*/};
 
 [[ $# -eq 0 ]] && {
 	# no arguments
-	echo "No options given: $OPTIND";
+	echo "No options given: ${OPTIND}";
 	exit 1
 }
 
@@ -234,44 +304,35 @@ table=; # single fill
 stores=( ); # array
 
 # : after a letter is for string into parameter
-while getopts ":dhls:t:" opt
-do
-	case $opt in
-
-		d)
-			set -x;
-			;;
-		h)
-			echo "Help page";
-			exit 0;
-			;;
-		s)
-			stores[${#stores[*]}]=$OPTARG;
-			;;
-		t)
-			if [ -z "$table" ];
-			then
-				table=$OPTARG;
-			fi;
-			;;
-		l)
-			(( log++ ));
-			;;
-
-		\? )  echo -e "\n  Option does not exist : $OPTARG\n"
-			echo "One option"; exit 1   ;;
-
-	esac    # --- end of case ---
+while getopts ":dhls:t:" opt; do
+  case ${opt} in
+  d) set -x ;;
+  h)
+     echo "Help page"
+     exit
+  ;;
+  s) stores[${#stores[*]}]=${OPTARG} ;;
+  t)
+     if [ -z "${table}" ]; then
+       table=$OPTARG
+     fi
+  ;;
+  l) (( log++ )) ;;
+  *)
+     echo -e "\n  Option does not exist: ${OPTARG}\n"
+  	 echo "One option"
+     exit 1
+  ;;
+  esac
 done
 
 # set debug if log is more than two
-[[ $log -gt 2 ]] && {
+[[ ${log} -gt 2 ]] && {
 	set -x
 	log=
 }
-
-[[ "$log" == '' ]] && unset log
+[[ "${log}" == '' ]] && unset log
 ```
 
-### final remarks
+## Final remarks
 this will (hopefully) be extended by the community and myself over time.
