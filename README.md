@@ -334,5 +334,19 @@ done
 [[ "${log}" == '' ]] && unset log
 ```
 
+### Anonymous Functions (Lambdas)
+Yup, it's possible. But you'll probably never need them, in case you
+really do, here's how:
+
+```bash
+function lambda() {
+  _f=${1} ; shift
+  function _l {
+    eval ${_f};
+  }
+  _l ${*} ; unset _l
+}
+```
+
 ## Final remarks
 this will (hopefully) be extended by the community and myself over time.
