@@ -30,8 +30,12 @@ Here's how you write bash code that somebody else will actually understand, is u
 
 #### Test driven development and Unit testing:
 * https://github.com/sstephenson/bats
-* https://code.google.com/p/shunit2/
 * https://github.com/mlafeldt/sharness
+* https://bitheap.org/cram/
+* https://github.com/rylnd/shpec
+* https://github.com/roman-neuhauser/rnt
+* https://code.google.com/p/shunit2/
+* https://github.com/thinkerbot/ts
 
 #### Profiling:
 * https://github.com/sstephenson/bashprof
