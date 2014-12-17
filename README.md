@@ -67,6 +67,8 @@ Issue in this GitHub repository if you disagree.
 * never use TAB for intendation
 * consistently use two (2), three (3) or four (4) character intendation.
   These are indeed mutually exclusive.
+* **always** put parameters in double-quotes: `util "--argument"
+  "${variable}".
 * do not put `if .. then`, `while .. do` or `for .. do`, `case .. in` et cetera on a new line. this is more a tradition than actual convention. Most Bash programmers will use that style - for the sake of simplicity, let's do as well:
     ```bash
     if ${event}; then
