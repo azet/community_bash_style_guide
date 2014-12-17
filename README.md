@@ -134,7 +134,7 @@ correct:
 $(call_command_in_subshell)
 ```
 
-backticks are not POSIX compliant. they also cannot be nested without being escaped (which looks just insane):
+Backticks are POSIX compliant but not 100% portable (doesn't work on Solaris 10 /bin/sh for example). Backticks also cannot be nested without being escaped (which looks just insane):
 ```bash
 $(call_command_in_subshell $(different_command $(yetanother_as_parameter)))
 ```
