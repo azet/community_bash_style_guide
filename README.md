@@ -217,32 +217,6 @@ it will come to hurt you, trust me.
 
 `bc(1)` does not properly handle modulo operations most of the time: https://superuser.com/questions/31445/gnu-bc-modulo-with-scale-other-than-0
 
-### Using sockets with bash
-although i do not really recommend it, it's possible to do simple (or even complex) socket operations in bash using the `/dev/tcp` and `/dev/udp` pseudo-devices: http://wiki.bash-hackers.org/syntax/redirection
-
-example:
-```bash
-function recv() {
-   local proto=${1} # tcp or udp
-   local host=${2}  # hostname
-   local port=${3}  # port number
-   exec 3<>/dev/${proto}/${host}/${port}
-   cat <&3
-}
-
-function send() {
-   local msg=${1}
-   echo -e ${msg} >&3
-}
-
-[...]
-```
-
-you may consider using `nc` (netcat) or even the far more advanced program `socat`: 
-* http://www.dest-unreach.org/socat/doc/socat.html
-* http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
-
-
 ### FIFO/named pipes
 if you do not know what a named pipe is, please read this: http://wiki.bash-hackers.org/howto/redirection_tutorial
 
@@ -339,6 +313,12 @@ done
 [[ "${log}" == '' ]] && unset log
 ```
 
+## Trivia section
+This section outlines stuff that can be done in Bash but is not
+necessarily a good idea to do in Bash - might still come in handy for
+some corner cases or for curious Bash hackers, I've chosen to include
+that information.
+
 ### Anonymous Functions (Lambdas)
 Yup, it's possible. But you'll probably never need them, in case you
 really do, here's how:
@@ -352,6 +332,32 @@ function lambda() {
   _l ${*} ; unset _l
 }
 ```
+
+### Using sockets with bash
+although i do not really recommend it, it's possible to do simple (or even complex) socket operations in bash using the `/dev/tcp` and `/dev/udp` pseudo-devices: http://wiki.bash-hackers.org/syntax/redirection
+
+example:
+```bash
+function recv() {
+   local proto=${1} # tcp or udp
+   local host=${2}  # hostname
+   local port=${3}  # port number
+   exec 3<>/dev/${proto}/${host}/${port}
+   cat <&3
+}
+
+function send() {
+   local msg=${1}
+   echo -e ${msg} >&3
+}
+
+[...]
+```
+
+you may consider using `nc` (netcat) or even the far more advanced program `socat`: 
+* http://www.dest-unreach.org/socat/doc/socat.html
+* http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
+
 
 ## Final remarks
 this will (hopefully) be extended by the community and myself over time.
