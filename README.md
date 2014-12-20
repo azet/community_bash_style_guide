@@ -99,6 +99,11 @@ Issue in this GitHub repository if you disagree.
 * never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
 
 ## Resources
+### Presentations on this Document:
+* *Beautiful Bash: A community driven effort* by Aaron Zauner @ Vienna System Architects & DevOps/Security Meetup Vienna, 17/12/14
+   - http://www.slideshare.net/a_z_e_t/inpresentation
+   - https://github.com/azet/talks/tree/master/2014/DevOpsSec-Meetup_Vienna/beautiful_bash-17_12_2014
+
 ### General documentation, style guides, tutorials and articles:
 * https://www.gnu.org/software/bash/manual/bashref.html
 * http://wiki.bash-hackers.org/doku.php
