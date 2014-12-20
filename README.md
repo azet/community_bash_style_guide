@@ -19,6 +19,7 @@ Here's how you write bash code that somebody else will actually understand, is u
    tricks](#common-mistakes-and-useful-tricks)
 5. [Trivia section](#trivia-section)
 6. [Final remarks](#final-remarks)
+7. [Licensing](#licensing)
 
 
 ## When to use bash and when to avoid bash
@@ -384,3 +385,13 @@ of course, looking forward to people opening issues and pull requests
 for this project.
 
 Please spread the word!
+
+## Licensing
+This project is licensed as [CC BY
+4.0](https://creativecommons.org/licenses/by/4.0/). Aaron Zauner
+<azet@azet.org> started this project. But it has become a community
+driven effort and should be regarded as such.
+
+For the full legal code see the `LICENSE` file.
+
+![license](https://i.creativecommons.org/l/by/4.0/88x31.png)
