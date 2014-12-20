@@ -120,6 +120,17 @@ Issue in this GitHub repository if you disagree.
 
 * be as modular and plugable as possible and;
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
+* scripts should use the following layout for each needed section
+   ```
+   #!SHEBANG
+
+   Variables
+
+   Functions
+
+   Main
+   ```
+
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
 * never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
 
