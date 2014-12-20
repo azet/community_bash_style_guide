@@ -110,11 +110,14 @@ Issue in this GitHub repository if you disagree.
 * http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
 
 ### Linting and static analysis:
-* http://www.shellcheck.net
-* https://github.com/koalaman/shellcheck
-* https://www.npmjs.org/package/grunt-lint-bash
+* http://www.shellcheck.net (https://github.com/koalaman/shellcheck)
+
+#### Portability
 * https://github.com/duggan/shlint
 * http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
+
+#### Misc
+* https://www.npmjs.org/package/grunt-lint-bash
 
 ### Test driven development and Unit testing:
 * https://github.com/sstephenson/bats
