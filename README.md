@@ -18,6 +18,8 @@ Here's how you write bash code that somebody else will actually understand, is u
 4. [Common mistakes and useful
    tricks](#common-mistakes-and-useful-tricks)
 5. [Trivia section](#trivia-section)
+6. [Final remarks](#final-remarks)
+
 
 ## When to use bash and when to avoid bash
 it's rather simple:
@@ -375,6 +377,10 @@ you may consider using `nc` (netcat) or even the far more advanced program `soca
 * http://www.dest-unreach.org/socat/doc/socat.html
 * http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
 
-
 ## Final remarks
-this will (hopefully) be extended by the community and myself over time.
+Every contribution is valuable to this effort. I'll do my best to
+incorporate all positive and negative feedback, criticism  and am,
+of course, looking forward to people opening issues and pull requests
+for this project.
+
+Please spread the word!
