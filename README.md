@@ -122,9 +122,10 @@ Issue in this GitHub repository if you disagree.
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
 * scripts should use the following layout for each needed section
    ```
-   #!SHEBANG
+   #!/usr/bin/env bash
 
-   Variables
+   Readonly Variables
+   Global Variables
 
    Functions
 
