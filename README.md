@@ -19,7 +19,9 @@ Here's how you write bash code that somebody else will actually understand, is u
    tricks](#common-mistakes-and-useful-tricks)
 5. [Trivia section](#trivia-section)
 6. [Final remarks](#final-remarks)
-7. [Licensing](#licensing)
+7. [Licensing](#licensing)     
+   [![cc by 4.0
+int](https://i.creativecommons.org/l/by/4.0/80x15.png)](https://creativecommons.org/licenses/by/4.0/)
 
 
 ## When to use bash and when to avoid bash
@@ -387,11 +389,10 @@ for this project.
 Please spread the word!
 
 ## Licensing
-This project is licensed as [CC BY
-4.0](https://creativecommons.org/licenses/by/4.0/). Aaron Zauner
-<azet@azet.org> started this project. But it has become a community
-driven effort and should be regarded as such.
+This project is licensed under a [Creative Commons Attribution 4.0
+International License](https://creativecommons.org/licenses/by/4.0/).
 
-For the full legal code see the `LICENSE` file.
+The full legal code is contained in the `LICENSE` file distributed with
+this repository.
 
 ![license](https://i.creativecommons.org/l/by/4.0/88x31.png)
