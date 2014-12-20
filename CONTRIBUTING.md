@@ -8,6 +8,8 @@ There're not many.
 * Provide references/sources to your statements and concerns if
   appropriate.
 * Follow the Code of Conduct (see below).
+* **If** you're using GPG - sign your commits (`git
+  commit -S`)
 
 ### Code of Conduct
 We follow the [Python Community Code of
