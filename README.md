@@ -10,39 +10,14 @@ This is intended to be a community driven bash style and best practice guide. Th
 
 Here's how you write bash code that somebody else will actually understand, is unit testable and will work in different environments no matter what. please read the mentioned articles, you will not regret it. Furthermore people that will have to work with or maintain your scripts will not hate you in the future.
 
-### Resources
-#### General documentation, style guides, tutorials and articles:
-* https://www.gnu.org/software/bash/manual/bashref.html
-* http://wiki.bash-hackers.org/doku.php
-* http://mywiki.wooledge.org/BashFAQ
-* https://google-styleguide.googlecode.com/svn/trunk/shell.xml
-* http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
-* http://mywiki.wooledge.org/BashWeaknesses
-* https://github.com/docopt/docopts (see: http://docopt.org)
-* http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
-
-#### Linting and static analysis:
-* http://www.shellcheck.net
-* https://github.com/koalaman/shellcheck
-* https://www.npmjs.org/package/grunt-lint-bash
-* https://github.com/duggan/shlint
-* http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
-
-#### Test driven development and Unit testing:
-* https://github.com/sstephenson/bats
-* https://github.com/mlafeldt/sharness
-* https://bitheap.org/cram/
-* https://github.com/rylnd/shpec
-* https://github.com/roman-neuhauser/rnt
-* https://code.google.com/p/shunit2/
-* https://github.com/thinkerbot/ts
-
-#### Profiling:
-* https://github.com/sstephenson/bashprof
-
-#### Debugging:
-* `set -evx` and `bash -evx script.sh`
-* http://bashdb.sourceforge.net/
+## Table of Contents
+1. [When to use Bash and when to avoid
+   Bash](#when-to-use-bash-and-when-to-avoid-bash)
+2. [Style conventions](#style-conventions)
+3. [Resources](#resources)
+4. [Common mistakes and useful
+   tricks](#common-mistakes-and-useful-tricks)
+5. [Trivia section](#trivia-section)
 
 ## When to use bash and when to avoid bash
 it's rather simple:
@@ -122,6 +97,40 @@ Issue in this GitHub repository if you disagree.
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
 * never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
+
+## Resources
+### General documentation, style guides, tutorials and articles:
+* https://www.gnu.org/software/bash/manual/bashref.html
+* http://wiki.bash-hackers.org/doku.php
+* http://mywiki.wooledge.org/BashFAQ
+* https://google-styleguide.googlecode.com/svn/trunk/shell.xml
+* http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
+* http://mywiki.wooledge.org/BashWeaknesses
+* https://github.com/docopt/docopts (see: http://docopt.org)
+* http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
+
+### Linting and static analysis:
+* http://www.shellcheck.net
+* https://github.com/koalaman/shellcheck
+* https://www.npmjs.org/package/grunt-lint-bash
+* https://github.com/duggan/shlint
+* http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
+
+### Test driven development and Unit testing:
+* https://github.com/sstephenson/bats
+* https://github.com/mlafeldt/sharness
+* https://bitheap.org/cram/
+* https://github.com/rylnd/shpec
+* https://github.com/roman-neuhauser/rnt
+* https://code.google.com/p/shunit2/
+* https://github.com/thinkerbot/ts
+
+### Profiling:
+* https://github.com/sstephenson/bashprof
+
+### Debugging:
+* `set -evx` and `bash -evx script.sh`
+* http://bashdb.sourceforge.net/
 
 ## Common mistakes and useful tricks
 
