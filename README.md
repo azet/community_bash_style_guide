@@ -192,6 +192,40 @@ listofthings=(${listofthings}) # convert to array
 ${listofthings[3]}
 ```
 
+### Use built in variable expansion instead of sed/awk
+instead of this
+```
+VAR=FOO
+printf ${VAR} | awk '{print tolower($0)}' # foo
+```
+
+use built in expansion like this
+```
+# ${VAR^} # upper single
+# ${VAR^^} # upper all
+# ${VAR,} # lower single
+# ${VAR,,} # lower all
+# ${VAR~} # swap case single
+# ${VAR~~} # swap case all
+
+VAR=BAR
+printf ${VAR,,} # bar
+```
+
+same thing with string replacement.
+```
+# ${VAR/PATTERN/STRING} # single replacement
+# ${VAR//PATTERN/STRING} # all match replacement
+# Use ${VAR#PATTERN} ${VAR%PATTERN} ${VAR/PATTERN} for string removal
+
+VAR=foofoobar
+${VAR/foo/bar} # barfoobar
+${VAR//foo/bar} # barbarbar
+$VAR//foo} # bar
+```
+
+More examples and uses here: http://wiki.bash-hackers.org/syntax/pe
+
 ### Do not use `seq` for ranges
 use `{x..y}` instead!
 
