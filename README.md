@@ -100,6 +100,18 @@ Issue in this GitHub repository if you disagree.
 
 * be as modular and plugable as possible and;
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
+* scripts should use the following layout for each needed section
+   ```
+   #!/usr/bin/env bash
+
+   Readonly Variables
+   Global Variables
+
+   Functions
+
+   Main
+   ```
+
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
 * never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
 
@@ -204,6 +216,40 @@ you may use bashisms instead:
 listofthings=(${listofthings}) # convert to array
 ${listofthings[3]}
 ```
+
+### Use built in variable expansion instead of sed/awk
+instead of this
+```
+VAR=FOO
+printf ${VAR} | awk '{print tolower($0)}' # foo
+```
+
+use built in expansion like this
+```
+# ${VAR^} # upper single
+# ${VAR^^} # upper all
+# ${VAR,} # lower single
+# ${VAR,,} # lower all
+# ${VAR~} # swap case single
+# ${VAR~~} # swap case all
+
+VAR=BAR
+printf ${VAR,,} # bar
+```
+
+same thing with string replacement.
+```
+# ${VAR/PATTERN/STRING} # single replacement
+# ${VAR//PATTERN/STRING} # all match replacement
+# Use ${VAR#PATTERN} ${VAR%PATTERN} ${VAR/PATTERN} for string removal
+
+VAR=foofoobar
+${VAR/foo/bar} # barfoobar
+${VAR//foo/bar} # barbarbar
+$VAR//foo} # bar
+```
+
+More examples and uses here: http://wiki.bash-hackers.org/syntax/pe
 
 ### Do not use `seq` for ranges
 use `{x..y}` instead!
