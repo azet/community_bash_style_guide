@@ -7,9 +7,10 @@ There're not many.
 * Be verbose in your description of an issue or pull request.
 * Provide references/sources to your statements and concerns if
   appropriate.
+* Sign-off your commits (`git commit -s [...]`)
+  - Thus you sign the [Developer Certificate of Origin](http://developercertificate.org/)
+  - **If** you're using GPG - additionally sign with your public key (`git commit -S [...]`)
 * Follow the Code of Conduct (see below).
-* **If** you're using GPG - sign your commits (`git
-  commit -S`)
 
 ### Code of Conduct
 We follow the [Python Community Code of
