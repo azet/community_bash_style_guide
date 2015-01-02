@@ -114,6 +114,12 @@ Issue in this GitHub repository if you disagree.
 
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
 * never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
+* never write a script without `set -e` at the very very beginning.
+  This instructs bash to terminate in case a command or chain of command
+  finishes with a non-zero exit status. The idea behind this is that a proper
+  programm should never have unhandled error conditions. Use constructs like
+  `if myprogramm --parameter ; then ... ` for calls that might fail and
+  require specific error handling. Use a cleanup trap for everything else.
 
 ## Resources
 
