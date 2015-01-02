@@ -120,6 +120,11 @@ Issue in this GitHub repository if you disagree.
   programm should never have unhandled error conditions. Use constructs like
   `if myprogramm --parameter ; then ... ` for calls that might fail and
   require specific error handling. Use a cleanup trap for everything else.
+* try to use `set -u` in your scripts. This will terminate your scripts in
+  case an uninitialized variable is accessed. This is especially important when
+  developing shell libraries, since library code accessing uninitialized
+  variables will fail in case it's used in another script which sets the `-u`
+  flag.
 
 ## Resources
 
