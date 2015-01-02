@@ -326,6 +326,11 @@ function fail() {
 do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO} $?
 ```
 
+Trapping on `EXIT` instead of a specific signal is particularly useful for
+cleanup handlers since this executes the handler regardless of the reason for
+the script's termination. This also includes reaching the end of your script
+and aborts due to `set -e`.
+
 ### You don't need cat
 sometimes `cat` is not available, but with bash you can read files anyhow.
 
