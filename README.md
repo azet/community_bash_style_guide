@@ -352,6 +352,10 @@ batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
 ```
 
+Also avoid `cat` where reading a file can be achieved through passing the
+file name as a parameter. Never do `cat ${FILENAME} | grep -v ...`, instead
+use `grep -v ... ${FILENAME}`.
+
 ### locking (file based)
 `flock(1)` is an userland utility for managing file based locking
 from within shell scripts. It supports exclusive and shared locks.
