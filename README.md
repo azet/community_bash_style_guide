@@ -114,6 +114,19 @@ Issue in this GitHub repository if you disagree.
 
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
 * never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
+* never write a script without `set -e` at the very very beginning.
+  This instructs bash to terminate in case a command or chain of command
+  finishes with a non-zero exit status. The idea behind this is that a proper
+  programm should never have unhandled error conditions. Use constructs like
+  `if myprogramm --parameter ; then ... ` for calls that might fail and
+  require specific error handling. Use a cleanup trap for everything else.
+* try to use `set -u` in your scripts. This will terminate your scripts in
+  case an uninitialized variable is accessed. This is especially important when
+  developing shell libraries, since library code accessing uninitialized
+  variables will fail in case it's used in another script which sets the `-u`
+  flag.
+* Silence is golden - like in any UNIX programm, avoid cluttering the
+  terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
 
 ## Resources
 
@@ -326,6 +339,11 @@ function fail() {
 do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO} $?
 ```
 
+Trapping on `EXIT` instead of a specific signal is particularly useful for
+cleanup handlers since this executes the handler regardless of the reason for
+the script's termination. This also includes reaching the end of your script
+and aborts due to `set -e`.
+
 ### You don't need cat
 sometimes `cat` is not available, but with bash you can read files anyhow.
 
@@ -333,6 +351,10 @@ sometimes `cat` is not available, but with bash you can read files anyhow.
 batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
 ```
+
+Also avoid `cat` where reading a file can be achieved through passing the
+file name as a parameter. Never do `cat ${FILENAME} | grep -v ...`, instead
+use `grep -v ... ${FILENAME}`.
 
 ### locking (file based)
 `flock(1)` is an userland utility for managing file based locking
