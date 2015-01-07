@@ -259,7 +259,7 @@ same thing with string replacement.
 VAR=foofoobar
 ${VAR/foo/bar} # barfoobar
 ${VAR//foo/bar} # barbarbar
-$VAR//foo} # bar
+${VAR//foo} # bar
 ```
 
 More examples and uses here: http://wiki.bash-hackers.org/syntax/pe
