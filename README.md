@@ -20,6 +20,7 @@ Here's how you write bash code that somebody else will actually understand, is u
 * http://mywiki.wooledge.org/BashWeaknesses
 * https://github.com/docopt/docopts (see: http://docopt.org)
 * http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
+* https://github.com/jlevy/the-art-of-command-line
 
 #### Linting and static analysis:
 * http://www.shellcheck.net
