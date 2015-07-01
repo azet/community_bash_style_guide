@@ -38,12 +38,19 @@ Here's how you write bash code that somebody else will actually understand, is u
 * https://code.google.com/p/shunit2/
 * https://github.com/thinkerbot/ts
 
-#### Profiling:
-* https://github.com/sstephenson/bashprof
+## Table of Contents
+1. [When to use Bash and when to avoid
+   Bash](#when-to-use-bash-and-when-to-avoid-bash)
+2. [Style conventions](#style-conventions)
+3. [Resources](#resources)
+4. [Common mistakes and useful
+   tricks](#common-mistakes-and-useful-tricks)
+5. [Trivia section](#trivia-section)
+6. [Final remarks](#final-remarks)
+7. [Licensing](#licensing)     
+   [![cc by 4.0
+int](https://i.creativecommons.org/l/by/4.0/80x15.png)](https://creativecommons.org/licenses/by/4.0/)
 
-#### Debugging:
-* `set -evx` and `bash -evx script.sh`
-* http://bashdb.sourceforge.net/
 
 ## When to use bash and when to avoid bash
 it's rather simple:
@@ -68,8 +75,7 @@ Issue in this GitHub repository if you disagree.
 * never use TAB for intendation
 * consistently use two (2), three (3) or four (4) character intendation.
   These are indeed mutually exclusive.
-* **always** put parameters in double-quotes: `util "--argument"
-  "${variable}".
+* **always** put parameters in double-quotes: `util "--argument" "${variable}"`.
 * do not put `if .. then`, `while .. do` or `for .. do`, `case .. in` et cetera on a new line. this is more a tradition than actual convention. Most Bash programmers will use that style - for the sake of simplicity, let's do as well:
     ```bash
     if ${event}; then
@@ -122,8 +128,77 @@ Issue in this GitHub repository if you disagree.
 
 * be as modular and plugable as possible and;
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
+* scripts should use the following layout for each needed section
+   ```
+   #!/usr/bin/env bash
+
+   Readonly Variables
+   Global Variables
+
+   Functions
+
+   Main
+   ```
+
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
 * never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
+* never write a script without `set -e` at the very very beginning.
+  This instructs bash to terminate in case a command or chain of command
+  finishes with a non-zero exit status. The idea behind this is that a proper
+  programm should never have unhandled error conditions. Use constructs like
+  `if myprogramm --parameter ; then ... ` for calls that might fail and
+  require specific error handling. Use a cleanup trap for everything else.
+* try to use `set -u` in your scripts. This will terminate your scripts in
+  case an uninitialized variable is accessed. This is especially important when
+  developing shell libraries, since library code accessing uninitialized
+  variables will fail in case it's used in another script which sets the `-u`
+  flag.
+* Silence is golden - like in any UNIX programm, avoid cluttering the
+  terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
+
+## Resources
+
+### General documentation, style guides, tutorials and articles:
+* https://www.gnu.org/software/bash/manual/bashref.html
+* http://wiki.bash-hackers.org/doku.php
+* http://mywiki.wooledge.org/BashFAQ
+* https://google-styleguide.googlecode.com/svn/trunk/shell.xml
+* http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
+* http://mywiki.wooledge.org/BashWeaknesses
+* https://github.com/docopt/docopts (see: http://docopt.org)
+* http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
+
+### Linting and static analysis:
+* http://www.shellcheck.net (https://github.com/koalaman/shellcheck)
+
+#### Portability
+* https://github.com/duggan/shlint
+* http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
+
+#### Misc
+* https://www.npmjs.org/package/grunt-lint-bash
+
+### Test driven development and Unit testing:
+* https://github.com/sstephenson/bats
+* https://github.com/mlafeldt/sharness
+* https://bitheap.org/cram/
+* https://github.com/rylnd/shpec
+* https://github.com/roman-neuhauser/rnt
+* https://code.google.com/p/shunit2/
+* https://github.com/thinkerbot/ts
+
+### Profiling:
+* https://github.com/sstephenson/bashprof
+
+### Debugging:
+* `set -evx` and `bash -evx script.sh`
+* http://bashdb.sourceforge.net/
+
+### Presentations on this Document:
+* 17/12/14: *Beautiful Bash: A community driven effort* by Aaron Zauner @ Vienna System Architects & DevOps/Security Meetup Vienna
+   - http://www.slideshare.net/a_z_e_t/inpresentation
+   - https://github.com/azet/talks/tree/master/2014/DevOpsSec-Meetup_Vienna/beautiful_bash-17_12_2014
+
 
 ## Common mistakes and useful tricks
 
@@ -183,6 +258,40 @@ listofthings=(${listofthings}) # convert to array
 ${listofthings[3]}
 ```
 
+### Use built in variable expansion instead of sed/awk
+instead of this
+```
+VAR=FOO
+printf ${VAR} | awk '{print tolower($0)}' # foo
+```
+
+use built in expansion like this
+```
+# ${VAR^} # upper single
+# ${VAR^^} # upper all
+# ${VAR,} # lower single
+# ${VAR,,} # lower all
+# ${VAR~} # swap case single
+# ${VAR~~} # swap case all
+
+VAR=BAR
+printf ${VAR,,} # bar
+```
+
+same thing with string replacement.
+```
+# ${VAR/PATTERN/STRING} # single replacement
+# ${VAR//PATTERN/STRING} # all match replacement
+# Use ${VAR#PATTERN} ${VAR%PATTERN} ${VAR/PATTERN} for string removal
+
+VAR=foofoobar
+${VAR/foo/bar} # barfoobar
+${VAR//foo/bar} # barbarbar
+${VAR//foo} # bar
+```
+
+More examples and uses here: http://wiki.bash-hackers.org/syntax/pe
+
 ### Do not use `seq` for ranges
 use `{x..y}` instead!
 
@@ -218,32 +327,6 @@ for reference see:
 it will come to hurt you, trust me.
 
 `bc(1)` does not properly handle modulo operations most of the time: https://superuser.com/questions/31445/gnu-bc-modulo-with-scale-other-than-0
-
-### Using sockets with bash
-although i do not really recommend it, it's possible to do simple (or even complex) socket operations in bash using the `/dev/tcp` and `/dev/udp` pseudo-devices: http://wiki.bash-hackers.org/syntax/redirection
-
-example:
-```bash
-function recv() {
-   local proto=${1} # tcp or udp
-   local host=${2}  # hostname
-   local port=${3}  # port number
-   exec 3<>/dev/${proto}/${host}/${port}
-   cat <&3
-}
-
-function send() {
-   local msg=${1}
-   echo -e ${msg} >&3
-}
-
-[...]
-```
-
-you may consider using `nc` (netcat) or even the far more advanced program `socat`: 
-* http://www.dest-unreach.org/socat/doc/socat.html
-* http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
-
 
 ### FIFO/named pipes
 if you do not know what a named pipe is, please read this: http://wiki.bash-hackers.org/howto/redirection_tutorial
@@ -284,6 +367,11 @@ function fail() {
 do_stuff ${withinput} || fail "did not do stuff correctly" ${FILENAME} ${LINENO} $?
 ```
 
+Trapping on `EXIT` instead of a specific signal is particularly useful for
+cleanup handlers since this executes the handler regardless of the reason for
+the script's termination. This also includes reaching the end of your script
+and aborts due to `set -e`.
+
 ### You don't need cat
 sometimes `cat` is not available, but with bash you can read files anyhow.
 
@@ -291,6 +379,10 @@ sometimes `cat` is not available, but with bash you can read files anyhow.
 batterystatus=$(< /sys/class/power_supply/BAT0/status)
 printf "%s\n" ${batterystatus}
 ```
+
+Also avoid `cat` where reading a file can be achieved through passing the
+file name as a parameter. Never do `cat ${FILENAME} | grep -v ...`, instead
+use `grep -v ... ${FILENAME}`.
 
 ### locking (file based)
 `flock(1)` is an userland utility for managing file based locking
@@ -341,6 +433,12 @@ done
 [[ "${log}" == '' ]] && unset log
 ```
 
+## Trivia section
+This section outlines stuff that can be done in Bash but is not
+necessarily a good idea to do in Bash - might still come in handy for
+some corner cases or for curious Bash hackers, I've chosen to include
+that information.
+
 ### Anonymous Functions (Lambdas)
 Yup, it's possible. But you'll probably never need them, in case you
 really do, here's how:
@@ -355,5 +453,44 @@ function lambda() {
 }
 ```
 
+### Using sockets with bash
+although i do not really recommend it, it's possible to do simple (or even complex) socket operations in bash using the `/dev/tcp` and `/dev/udp` pseudo-devices: http://wiki.bash-hackers.org/syntax/redirection
+
+example:
+```bash
+function recv() {
+   local proto=${1} # tcp or udp
+   local host=${2}  # hostname
+   local port=${3}  # port number
+   exec 3<>/dev/${proto}/${host}/${port}
+   cat <&3
+}
+
+function send() {
+   local msg=${1}
+   echo -e ${msg} >&3
+}
+
+[...]
+```
+
+you may consider using `nc` (netcat) or even the far more advanced program `socat`: 
+* http://www.dest-unreach.org/socat/doc/socat.html
+* http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
+
 ## Final remarks
-this will (hopefully) be extended by the community and myself over time.
+Every contribution is valuable to this effort. I'll do my best to
+incorporate all positive and negative feedback, criticism  and am,
+of course, looking forward to people opening issues and pull requests
+for this project.
+
+Please spread the word!
+
+## Licensing
+This project is licensed under a [Creative Commons Attribution 4.0
+International License](https://creativecommons.org/licenses/by/4.0/).
+
+The full legal code is contained in the `LICENSE` file distributed with
+this repository.
+
+![license](https://i.creativecommons.org/l/by/4.0/88x31.png)
