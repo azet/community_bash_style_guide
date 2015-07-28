@@ -147,9 +147,6 @@ Issue in this GitHub repository if you disagree.
 * https://github.com/duggan/shlint
 * http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
 
-#### Misc
-* https://www.npmjs.org/package/grunt-lint-bash
-
 ### Test driven development and Unit testing:
 * https://github.com/sstephenson/bats
 * https://github.com/mlafeldt/sharness
