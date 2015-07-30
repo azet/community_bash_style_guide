@@ -125,8 +125,13 @@ Issue in this GitHub repository if you disagree.
   developing shell libraries, since library code accessing uninitialized
   variables will fail in case it's used in another script which sets the `-u`
   flag.
+* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where possible and sensible `set -r`.
+* use `set -o pipefail` to get an exit status from a pipeline (last
+  non-zero will be returned).
 * Silence is golden - like in any UNIX programm, avoid cluttering the
   terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
+
+Mnemonic: `set -oreu pipefail`
 
 ## Resources
 
