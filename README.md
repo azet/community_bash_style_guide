@@ -125,7 +125,7 @@ Issue in this GitHub repository if you disagree.
   developing shell libraries, since library code accessing uninitialized
   variables will fail in case it's used in another script which sets the `-u`
   flag.
-* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where possible and sensible `set -r`.
+* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r`.
 * use `set -o pipefail` to get an exit status from a pipeline (last
   non-zero will be returned).
 * Silence is golden - like in any UNIX programm, avoid cluttering the
@@ -144,6 +144,7 @@ Mnemonic: `set -oreu pipefail`
 * http://mywiki.wooledge.org/BashWeaknesses
 * https://github.com/docopt/docopts (see: http://docopt.org)
 * http://isquared.nl/blog/2012/11/19/bash-lambda-expressions
+* http://www.davidpashley.com/articles/writing-robust-shell-scripts/
 
 ### Linting and static analysis:
 * http://www.shellcheck.net (https://github.com/koalaman/shellcheck)
@@ -451,6 +452,13 @@ function send() {
 you may consider using `nc` (netcat) or even the far more advanced program `socat`: 
 * http://www.dest-unreach.org/socat/doc/socat.html
 * http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
+
+### Foreign Function Interface
+Tavis Ormandy wrote a FFI for Bash. You can directly access function
+from shared libraries in bash using `ctypes.sh`. It's a nice hack, but
+use is somewhat discouraged. Use userland utilities.
+
+[ctypes.sh](https://github.com/taviso/ctypes.sh)
 
 ## Final remarks
 Every contribution is valuable to this effort. I'll do my best to
