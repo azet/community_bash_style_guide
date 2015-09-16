@@ -44,9 +44,11 @@ This should be seen as an ongoing discussion, you might want to open an
 Issue in this GitHub repository if you disagree.
 
 * use the `#!/usr/bin/env bash` shebang wherever possible
+* use `set -eu -o pipefail` to prevent use of unset variables and
+  perform strict error handling (exiting), e.g. if a sub-process or
+  piped-command returns an error.
 * never use TAB for intendation
-* consistently use two (2), three (3) or four (4) character intendation.
-  These are indeed mutually exclusive.
+* consistently use two (2) or four (4) character intendation.
 * **always** put parameters in double-quotes: `util "--argument" "${variable}"`.
 * do not put `if .. then`, `while .. do` or `for .. do`, `case .. in` et cetera on a new line. this is more a tradition than actual convention. Most Bash programmers will use that style - for the sake of simplicity, let's do as well:
     ```bash
@@ -103,6 +105,10 @@ Issue in this GitHub repository if you disagree.
 * scripts should use the following layout for each needed section
    ```
    #!/usr/bin/env bash
+   #
+   # AUTHORS, LICENSE and DOCUMENTATION
+   #
+   set -eu -o pipefail
 
    Readonly Variables
    Global Variables
