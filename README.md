@@ -44,9 +44,21 @@ This should be seen as an ongoing discussion, you might want to open an
 Issue in this GitHub repository if you disagree.
 
 * use the `#!/usr/bin/env bash` shebang wherever possible
-* use `set -eu -o pipefail` to prevent use of unset variables and
-  perform strict error handling (exiting), e.g. if a sub-process or
-  piped-command returns an error.
+* memorize and utilize `set -eu -o pipefail` at the very beginning of
+  your code:
+  * never write a script without `set -e` at the very very beginning.
+  This instructs bash to terminate in case a command or chain of command
+  finishes with a non-zero exit status. The idea behind this is that a proper
+  programm should never have unhandled error conditions. Use constructs like
+  `if myprogramm --parameter ; then ... ` for calls that might fail and
+  require specific error handling. Use a cleanup trap for everything else.
+  * use `set -u` in your scripts. This will terminate your scripts in
+  case an uninitialized variable is accessed. This is especially important when
+  developing shell libraries, since library code accessing uninitialized
+  variables will fail in case it's used in another script which sets the `-u`
+  flag. Obviously this flag is also relevant to the script's/code's security.
+  * use `set -o pipefail` to get an exit status from a pipeline (last
+  non-zero will be returned).
 * never use TAB for intendation
 * consistently use two (2) or four (4) character intendation.
 * **always** put parameters in double-quotes: `util "--argument" "${variable}"`.
@@ -119,25 +131,9 @@ Issue in this GitHub repository if you disagree.
    ```
 
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
-* never use unescaped variables - while it *might* not always be the case that this could break something, conditioning yourself to do it in one way will benefit your code quality and robustness. Like that:`${MyVariable}`
-* never write a script without `set -e` at the very very beginning.
-  This instructs bash to terminate in case a command or chain of command
-  finishes with a non-zero exit status. The idea behind this is that a proper
-  programm should never have unhandled error conditions. Use constructs like
-  `if myprogramm --parameter ; then ... ` for calls that might fail and
-  require specific error handling. Use a cleanup trap for everything else.
-* try to use `set -u` in your scripts. This will terminate your scripts in
-  case an uninitialized variable is accessed. This is especially important when
-  developing shell libraries, since library code accessing uninitialized
-  variables will fail in case it's used in another script which sets the `-u`
-  flag.
-* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r`.
-* use `set -o pipefail` to get an exit status from a pipeline (last
-  non-zero will be returned).
+* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r` (not supported in old versions of Bash).
 * Silence is golden - like in any UNIX programm, avoid cluttering the
   terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
-
-Mnemonic: `set -oreu pipefail`
 
 ## Resources
 
