@@ -114,7 +114,9 @@ Issue in this GitHub repository if you disagree.
 
 * be as modular and plugable as possible and;
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
-* scripts should use the following layout for each needed section
+* clearly document code parts that are not easily understood (long chains of piped commands for example)
+* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r` (not supported in old versions of Bash). **Use with caution.** While this flag is *very useful for security* sensitive environments, scripts have to be written with the flag in mind. Adding restricted mode to an existing script will most likely break it.
+* Thus, scripts should somewhat reflect the following general layout:
    ```
    #!/usr/bin/env bash
    #
@@ -125,13 +127,17 @@ Issue in this GitHub repository if you disagree.
    Readonly Variables
    Global Variables
 
+   Optional import/sourcing of foreign code ("source")
+
    Functions
+    `-. function local variables
 
    Main
+    `-. option parsing
+    `-. log file and syslog handling
+    `-. temp. file and named pipe handling
+    `-. signal traps
    ```
-
-* clearly document code parts that are not easily understood (long chains of piped commands for example)
-* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r` (not supported in old versions of Bash). **Use with caution.** While this flag is *very useful for security* sensitive environments, scripts have to be written with the flag in mind. Adding restricted mode to an existing script will most likely break it.
 * Silence is golden - like in any UNIX programm, avoid cluttering the
   terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
 
