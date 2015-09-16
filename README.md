@@ -56,7 +56,7 @@ Issue in this GitHub repository if you disagree.
   case an uninitialized variable is accessed. This is especially important when
   developing shell libraries, since library code accessing uninitialized
   variables will fail in case it's used in another script which sets the `-u`
-  flag. Obviously this flag is also relevant to the script's/code's security.
+  flag. Obviously this flag is relevant to the script's/code's security.
   * use `set -o pipefail` to get an exit status from a pipeline (last
   non-zero will be returned).
 * never use TAB for intendation:
@@ -131,7 +131,7 @@ Issue in this GitHub repository if you disagree.
    ```
 
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
-* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r` (not supported in old versions of Bash).
+* try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r` (not supported in old versions of Bash). **Use with caution.** While this flag is *very useful for security* sensitive environments, scripts have to be written with the flag in mind. Adding restricted mode to an existing script will most likely break it.
 * Silence is golden - like in any UNIX programm, avoid cluttering the
   terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
 
