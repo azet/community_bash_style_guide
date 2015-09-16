@@ -127,16 +127,23 @@ Issue in this GitHub repository if you disagree.
    Readonly Variables
    Global Variables
 
-   Optional import/sourcing of foreign code ("source")
+   Import ("source scriptname") of external source code 
 
    Functions
     `-. function local variables
+    `-. clearly describe interfaces: return either a code or string
 
    Main
     `-. option parsing
     `-. log file and syslog handling
     `-. temp. file and named pipe handling
     `-. signal traps
+
+    --------------------------------------------------------------------------
+    To keep in mind:
+    - quoting of all variables passed when executing sub-shells or cli tools
+    - testing of functions, conditionals and flow (see style guide)
+    - makes restricted mode ("set -r") for security sense here?
    ```
 * Silence is golden - like in any UNIX programm, avoid cluttering the
   terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
