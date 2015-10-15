@@ -99,9 +99,9 @@ Issue in this GitHub repository if you disagree.
 
 * only `trap` / handle signals you actually do care about
 * use the builtin `readonly` when declaring constants and immutable variable
-* assign integer variables, arrays, globals, scalars, floats etc. with 
+* assign integer variables, arrays, etc. with 
   `typeset`/`declare` ([see
-also](http://zsh.sourceforge.net/Doc/Release/Shell-Builtin-Commands.html))
+also](http://tldp.org/LDP/abs/html/declareref.html))
 * always work with return values instead of strings passed from a
   function or userland utility (where applicable)
 * write generic small check functions instead of large init and clean-up code:
