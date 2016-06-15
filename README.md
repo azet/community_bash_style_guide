@@ -383,47 +383,42 @@ from within shell scripts. It supports exclusive and shared locks.
 
 ### Use the `getopt` builtin for command line parameters
 ```bash
-echo "This script is: "${0##/*/};
+printf "This script is: %s\n" ${0##/*/}
 
-[[ $# -eq 0 ]] && {
-	# no arguments
-	echo "No options given: ${OPTIND}";
-	exit 1
+[[ "${#}" == 0 ]] && {
+  # no arguments
+  printf "No options given: %s\n" ${OPTIND}
+  exit 1
 }
 
-log=; # numeric, log
-table=; # single fill
-stores=( ); # array
+log=""     # numeric, log
+table=""   # single fill
+stores=( ) # array
 
 # : after a letter is for string into parameter
 while getopts ":dhls:t:" opt; do
-  case ${opt} in
+  case "${opt}" in
   d) set -x ;;
-  h)
-     echo "Help page"
-     exit
-  ;;
-  s) stores[${#stores[*]}]=${OPTARG} ;;
+  h) printf "Help page\n" ; exit ;;
+  s) stores[${#stores[*]}]="${OPTARG}" ;;
   t)
      if [ -z "${table}" ]; then
-       table=$OPTARG
+       table="${OPTARG}"
      fi
   ;;
   l) (( log++ )) ;;
   *)
-     echo -e "\n  Option does not exist: ${OPTARG}\n"
-  	 echo "One option"
+     printf "\n  Option does not exist: %s\nOne option\n" ${OPTARG}
      exit 1
   ;;
   esac
 done
 
 # set debug if log is more than two
-[[ ${log} -gt 2 ]] && {
-	set -x
-	log=
+[[ "${log}" >= 2 ]] && {
+  set -x ; log=""
 }
-[[ "${log}" == '' ]] && unset log
+[[ "${log}" == "" ]] && unset log
 ```
 
 ## Trivia section
