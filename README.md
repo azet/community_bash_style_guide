@@ -82,11 +82,14 @@ Issue in this GitHub repository if you disagree.
 * write clear code
   * **never** obfuscate what the script is trying to do
   * **never** shorten uncessesarily with a lot of commands per LoC chained
-    with a semicolon.
+    with a semicolon
 * Bash does not have a concept of public and private functions, thus;
   * public functions get generic names, whereas
   * private functions are prepended by two underscores (RedHat
     convention)
+* try to stick to the `pushd`, `popd`, and `dirs` builtins for
+  [directory stack
+manipulation](https://www.gnu.org/software/bash/manual/html_node/Directory-Stack-Builtins.html#Directory-Stack-Builtins) where sensible
 * every line must have a maximum of eighty (80) terminal columns
 * like in other dynamic languages, switch/case blocks should be aligned:
     ```bash
