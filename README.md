@@ -333,10 +333,28 @@ if you do not know what a named pipe is, please read this: http://wiki.bash-hack
 
 see: https://www.gnu.org/software/bash/manual/bashref.html#index-disown
 
-### Basic parallelism with `coproc` and GNU parallel
-usually people use `&` to send a process to the background and `wait` to wait for the process to finish. people then often use named pipes, files and global variables to communicate between the parent and sub programs. `coproc` can be used instead to have parallel jobs that can easily communicate with each other: http://wiki.bash-hackers.org/syntax/keywords/coproc
+### Basic parallelism
+usually people use `&` to send a process to the background and `wait` to wait for the process to finish. people then often use named pipes, files and global variables to communicate between the parent and sub programs.
 
-another excellent way to parallelize things in bash is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html 
+### `xargs`
+for file-based in-node parallelization, `xargs` is the easiest way to parallelize the processing of list elements.
+
+```bash
+# simple example: replace all occurences of "foo" with "bar" in ".txt" files
+#   will process each file individually and up 16 processes in parallel
+find . -name "*.txt" | xargs -n1 -P16 -I{} sed -i 's/foo/bar/g' {}
+
+# complex example: HDF5 repack for transparent compression of files
+#   find all ".h5" files in "${dirName}" and use up to 64 processes in parallel to independently compress them
+find ${dirName} -name "*.h5" | xargs -n1 -P64 -I{} \
+    sh -c 'echo "compress $1 ..." &&               \
+    h5repack -i $1 -o $1.gz -f GZIP=1 && mv $1.gz $1' _ {}
+```
+
+### `coproc` and GNU parallel
+`coproc` can be used instead to have parallel jobs that can easily communicate with each other: http://wiki.bash-hackers.org/syntax/keywords/coproc
+
+another excellent way to parallelize things in bash, especially for easy distribution over multiple hosts via SSH, is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html 
 
 ### Trapping, exception handling and failing gracefully
 `trap` is used for signal handling in bash, a generic error handling function may be used like this:
