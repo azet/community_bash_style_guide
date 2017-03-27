@@ -59,8 +59,8 @@ Issue in this GitHub repository if you disagree.
   flag. Obviously this flag is relevant to the script's/code's security.
   * use `set -o pipefail` to get an exit status from a pipeline (last
   non-zero will be returned).
-* never use TAB for intendation:
-   * consistently use two (2) or four (4) character intendation.
+* never use TAB for indentation:
+   * consistently use two (2) or four (4) character indentation.
 * **always** put parameters in double-quotes: `util "--argument" "${variable}"`.
 * do not put `if .. then`, `while .. do` or `for .. do`, `case .. in` et cetera on a new line. this is more a tradition than actual convention. Most Bash programmers will use that style - for the sake of simplicity, let's do as well:
     ```bash
