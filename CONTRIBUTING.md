@@ -9,7 +9,7 @@ There're not many.
   appropriate.
 * Sign-off your commits (`git commit -s [...]`)
   - Thus you sign the [Developer Certificate of Origin](http://developercertificate.org/)
-  - **If** you're using GPG - additionally sign with your public key (`git commit -S [...]`)
+  - **If** you're using GPG - additionally sign with your key (`git commit -S [...]`)
 * Follow the Code of Conduct (see below).
 
 ### Code of Conduct
