@@ -402,6 +402,10 @@ use `grep -v ... ${FILENAME}`.
 `flock(1)` is an userland utility for managing file based locking
 from within shell scripts. It supports exclusive and shared locks.
 
+### Mutex (Mutual Exclusion)
+mutex, although rather complex, is possible, too:
+http://wiki.bash-hackers.org/howto/mutex
+
 ### Use the `getopt` builtin for command line parameters
 ```bash
 printf "This script is: %s\n" ${0##/*/}
