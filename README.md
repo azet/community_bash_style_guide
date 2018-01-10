@@ -251,7 +251,7 @@ ${listofthings} | awk '{ print $3 }' # get the third item
 you may use bashisms instead:
 ```bash
 listofthings=(${listofthings}) # convert to array
-${listofthings[3]}
+${listofthings[2]}             # get the third item (start counting from 0)
 ```
 
 ### Use built in variable expansion instead of sed/awk
