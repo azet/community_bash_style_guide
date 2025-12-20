@@ -160,7 +160,7 @@ also](http://tldp.org/LDP/abs/html/declareref.html))
 * https://www.gnu.org/software/bash/manual/bashref.html
 * http://wiki.bash-hackers.org/doku.php
 * http://mywiki.wooledge.org/BashFAQ
-* https://google-styleguide.googlecode.com/svn/trunk/shell.xml
+* https://google.github.io/styleguide/shellguide.html
 * http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/
 * http://mywiki.wooledge.org/BashWeaknesses
 * https://github.com/docopt/docopts (see: http://docopt.org)
@@ -172,7 +172,7 @@ also](http://tldp.org/LDP/abs/html/declareref.html))
 
 #### Portability
 * https://github.com/duggan/shlint
-* http://manpages.ubuntu.com/manpages/natty/man1/checkbashisms.1.html
+* https://manpages.ubuntu.com/manpages/impish/en/man1/checkbashisms.1.html
 
 ### Test driven development and Unit testing:
 * https://github.com/sstephenson/bats
