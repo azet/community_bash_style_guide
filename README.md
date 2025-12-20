@@ -49,8 +49,8 @@ Issue in this GitHub repository if you disagree.
   * never write a script without `set -e` at the very very beginning.
   This instructs bash to terminate in case a command or chain of command
   finishes with a non-zero exit status. The idea behind this is that a proper
-  programm should never have unhandled error conditions. Use constructs like
-  `if myprogramm --parameter ; then ... ` for calls that might fail and
+  program should never have unhandled error conditions. Use constructs like
+  `if myprogram --parameter ; then ... ` for calls that might fail and
   require specific error handling. Use a cleanup trap for everything else.
   * use `set -u` in your scripts. This will terminate your scripts in
   case an uninitialized variable is accessed. This is especially important when
@@ -102,7 +102,7 @@ manipulation](https://www.gnu.org/software/bash/manual/html_node/Directory-Stack
 
 * only `trap` / handle signals you actually do care about
 * use the builtin `readonly` when declaring constants and immutable variable
-* assign integer variables, arrays, etc. with 
+* assign integer variables, arrays, etc. with
   `typeset`/`declare` ([see
 also](http://tldp.org/LDP/abs/html/declareref.html))
 * always work with return values instead of strings passed from a
@@ -118,7 +118,7 @@ also](http://tldp.org/LDP/abs/html/declareref.html))
     }
    ```
 
-* be as modular and plugable as possible and;
+* be as modular and pluggable as possible and;
 * if a project gets bigger, split it up into smaller files with clear and obvious naming scheme
 * clearly document code parts that are not easily understood (long chains of piped commands for example)
 * try to stick to [restricted mode](http://www.tldp.org/LDP/abs/html/restricted-sh.html) where sensible and possible to use: `set -r` (not supported in old versions of Bash). **Use with caution.** While this flag is *very useful for security* sensitive environments, scripts have to be written with the flag in mind. Adding restricted mode to an existing script will most likely break it.
@@ -133,7 +133,7 @@ also](http://tldp.org/LDP/abs/html/declareref.html))
    Readonly Variables
    Global Variables
 
-   Import ("source scriptname") of external source code 
+   Import ("source scriptname") of external source code
 
    Functions
     `-. function local variables
@@ -151,7 +151,7 @@ also](http://tldp.org/LDP/abs/html/declareref.html))
     - testing of functions, conditionals and flow (see style guide)
     - makes restricted mode ("set -r") for security sense here?
    ```
-* Silence is golden - like in any UNIX programm, avoid cluttering the
+* Silence is golden - like in any UNIX program, avoid cluttering the
   terminal with useless output. [Read this](http://www.linfo.org/rule_of_silence.html).
 
 ## Resources
@@ -169,6 +169,7 @@ also](http://tldp.org/LDP/abs/html/declareref.html))
 
 ### Linting and static analysis:
 * http://www.shellcheck.net (https://github.com/koalaman/shellcheck)
+* https://github.com/mvdan/sh
 
 #### Portability
 * https://github.com/duggan/shlint
@@ -243,7 +244,7 @@ versus using appropriate userland utilities:
 pgrep ${processname}
 ```
 ### Using `awk(1)` to print an element
-stackexchange is full of this behavoir:
+stackexchange is full of this behavior:
 
 ```bash
 ${listofthings} | awk '{ print $3 }' # get the third item
@@ -309,7 +310,7 @@ caveat: `timeout(1)` might not be available on BSD, Mac OS X and UNIX systems.
 the bash builtin `printf` should be preferred to `echo` where possible. it does work like `printf` in C or any other high-level language, for reference see: http://wiki.bash-hackers.org/commands/builtin/printf
 
 ### Bash arithmetic instead of `expr`
-bash offers the whole nine yards of arithmetic expressions directly as built-in bashisms.   
+bash offers the whole nine yards of arithmetic expressions directly as built-in bashisms.  
 
  **DO NOT USE `expr`**
 
@@ -340,7 +341,7 @@ usually people use `&` to send a process to the background and `wait` to wait fo
 for file-based in-node parallelization, `xargs` is the easiest way to parallelize the processing of list elements.
 
 ```bash
-# simple example: replace all occurences of "foo" with "bar" in ".txt" files
+# simple example: replace all occurrences of "foo" with "bar" in ".txt" files
 #   will process each file individually and up 16 processes in parallel
 find . -name "*.txt" | xargs -n1 -P16 -I{} sed -i 's/foo/bar/g' {}
 
@@ -354,7 +355,7 @@ find ${dirName} -name "*.h5" | xargs -n1 -P64 -I{} \
 ### `coproc` and GNU parallel
 `coproc` can be used instead to have parallel jobs that can easily communicate with each other: http://wiki.bash-hackers.org/syntax/keywords/coproc
 
-another excellent way to parallelize things in bash, especially for easy distribution over multiple hosts via SSH, is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html 
+another excellent way to parallelize things in bash, especially for easy distribution over multiple hosts via SSH, is by using GNU parallel: https://www.gnu.org/software/parallel/parallel_tutorial.html
 
 ### Trapping, exception handling and failing gracefully
 `trap` is used for signal handling in bash, a generic error handling function may be used like this:
@@ -487,7 +488,7 @@ function send() {
 [...]
 ```
 
-you may consider using `nc` (netcat) or even the far more advanced program `socat`: 
+you may consider using `nc` (netcat) or even the far more advanced program `socat`:
 * http://www.dest-unreach.org/socat/doc/socat.html
 * http://stuff.mit.edu/afs/sipb/machine/penguin-lust/src/socat-1.7.1.2/EXAMPLES
 
